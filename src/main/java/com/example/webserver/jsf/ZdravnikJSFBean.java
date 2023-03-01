@@ -16,6 +16,8 @@ public class ZdravnikJSFBean implements Serializable {
 
     private DruzinskiZdravnik zdravnik = new DruzinskiZdravnik();
 
+    private String mail;
+
     private ZdravnikMemoryDAO zdravnikDao = ZdravnikMemoryDAO.getInstance();
 
 
@@ -32,4 +34,12 @@ public class ZdravnikJSFBean implements Serializable {
 
     // delete operacija
     public void deleteZdravnik(String mail)  { zdravnikDao.izbrisiZdravnika(mail); }
+
+    public DruzinskiZdravnik getZdravnik() { return zdravnik; }
+
+    public void setZdravnik(DruzinskiZdravnik zdravnik) { this.zdravnik = zdravnik; }
+
+    public String getMail() { return mail; }
+
+    public void setMail(String mail) { this.mail = mail; }
 }

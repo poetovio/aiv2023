@@ -16,16 +16,16 @@
             <hr />
 
             <f:metadata>
-                <f:viewParam name="email" value="#{pacienti.mail}" />
+                <f:viewParam name="email" value="#{dohtarji.zdravnik.mail}" />
             </f:metadata>
 
-            Name: <h:inputText id="n_ime" value="#{pacienti.pacient.ime}"/><br/>
-            Surname: <h:inputText id="n_priimek" value="#{pacienti.pacient.priimek}"/><br/>
-            E-mail: <h:inputText id="n_email" value="#{pacienti.pacient.mail}" validatorMessage="Insert valid e-mail">
+            Ime: <h:inputText id="n_ime" value="#{dohtarji.zdravnik.ime}"/><br/>
+            Priimek: <h:inputText id="n_priimek" value="#{dohtarji.zdravnik.priimek}"/><br/>
+            E-mail: <h:inputText id="n_email" value="#{dohtarji.zdravnik.mail}" validatorMessage="Insert valid e-mail">
             <f:validateRequired />
         </h:inputText> * <h:message for="n_email" style="color:red" />
             <br/><br/>
-            <h:commandButton value="Save" action="#{pacienti.createPacient()}"/>
+            <h:commandButton value="Save" action="#{dohtarji.createZdravnik()}"/>
 
         </h:form>
     </f:view>

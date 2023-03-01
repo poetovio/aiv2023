@@ -10,23 +10,44 @@
     <f:view>
         <h:form>
 
-            [ <a href="#{facesContext.externalContext.applicationContextPath}/faces/prikazPacienti.xhtml">All</a> |
-            <a href="#{facesContext.externalContext.applicationContextPath}/faces/addPacient.xhtml">Add new</a> ]
+            [ <a href="#{facesContext.externalContext.applicationContextPath}/faces/prikazPacienti.xhtml">Pregled</a> |
+            <a href="#{facesContext.externalContext.applicationContextPath}/faces/addPacient.xhtml">Dodaj pacienta</a> |
+            <a href="#{facesContext.externalContext.applicationContextPath}/faces/addZdravnik.xhtml">Dodaj zdravnika</a> ]
             <hr />
 
+            Tabela pacientov: <br />
+
             <h:dataTable value="#{pacienti.getAllPacienti()}" var="pacient">
+                <h:column>#{pacient.ime}</h:column>
+                <h:column>#{pacient.priimek}</h:column>
                 <h:column>
                     <h:link value="#{pacient.mail}" outcome="details">
                         <f:param name="email" value="#{pacient.mail}" />
                     </h:link>
                 </h:column>
-                <h:column>#{pacient.priimek}</h:column>
-                <h:column>#{pacient.ime}</h:column>
                 <h:column>
                     <h:link value="Edit" outcome="edit">
                         <f:param name="email" value="#{pacient.mail}" />
                     </h:link> |
                     <h:commandLink value="Delete" actionListener="#{pacienti.deletePacient(pacient.mail)}" />
+                </h:column>
+            </h:dataTable>
+
+            Tabela zdravnikov: <br />
+
+            <h:dataTable value="#{dohtarji.getAllZdravniki()}" var="zdravnik">
+                <h:column>#{zdravnik.ime}</h:column>
+                <h:column>#{zdravnik.priimek}</h:column>
+                <h:column>
+                    <h:link value="#{zdravnik.mail}" outcome="details">
+                        <f:param name="email" value="#{zdravnik.mail}" />
+                    </h:link>
+                </h:column>
+                <h:column>
+                    <h:link value="Edit" outcome="edit">
+                        <f:param name="email" value="#{zdravnik.mail}" />
+                    </h:link> |
+                    <h:commandLink value="Delete" actionListener="#{dohtarji.deleteZdravnik(zdravnik.mail)}" />
                 </h:column>
             </h:dataTable>
 
