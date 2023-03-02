@@ -26,6 +26,9 @@
                 <h:column>#{obisk.zdravnik.ime} #{obisk.zdravnik.priimek}</h:column>
                 <h:column>#{obisk.opisDiangoze}</h:column>
                 <h:column>
+                    <h:link value="Podrobnosti" outcome="detailObisk">
+                        <f:param name="stObiska" value="#{obisk.stObiska}" />
+                    </h:link> |
                     <h:link value="Edit" outcome="edit">
                         <f:param name="email" value="#{obisk.stObiska}" />
                     </h:link> |

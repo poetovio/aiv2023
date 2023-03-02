@@ -28,6 +28,9 @@
                     </h:link>
                 </h:column>
                 <h:column>
+                    <h:link value="Podrobnosti" outcome="detailPacient">
+                        <f:param name="mail" value="#{pacient.mail}" />
+                    </h:link> |
                     <h:link value="Edit" outcome="edit">
                         <f:param name="email" value="#{pacient.mail}" />
                     </h:link> |

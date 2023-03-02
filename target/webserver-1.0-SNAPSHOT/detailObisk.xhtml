@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <meta charset="UTF-8" />
+    <title>Nakup vinjet</title>
+</h:head>
+
+<h:body>
+    <f:view>
+
+        [ <a href="#{facesContext.externalContext.applicationContextPath}/faces/prikazPacienti.xhtml">Pregled pacientov</a> |
+        <a href="#{facesContext.externalContext.applicationContextPath}/faces/prikazObiski.xhtml">Pregled obiskov</a> |
+        <a href="#{facesContext.externalContext.applicationContextPath}/faces/addPacient.xhtml">Dodaj pacienta</a> |
+        <a href="#{facesContext.externalContext.applicationContextPath}/faces/addZdravnik.xhtml">Dodaj zdravnika</a> |
+        <a href="#{facesContext.externalContext.applicationContextPath}/faces/addObisk.xhtml">Dodaj obisk</a> ]
+        <hr />
+
+        <f:metadata>
+            <f:viewParam name="stevilkaObiska" value="#{obisk.stObiska}" />
+        </f:metadata>
+
+        Številka obiska: <b>#{obiski.obisk.stObiska}</b><br/>
+        Pacient: <b>#{obiski.obisk.pacient.ime} #{obiski.obisk.pacient.priimek}</b><br/>
+        Zdravnik: <b>#{obiski.obisk.zdravnik.ime} #{obiski.obisk.zdravnik.priimek}</b><br/>
+        Datum obiska: <b>#{obiski.obisk.datum}</b><br/>
+        Opis diagnoze: <b>#{obiski.obisk.opisDiangoze}</b><br/>
+
+    </f:view>
+</h:body>
+</html>

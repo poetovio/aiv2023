@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <meta charset="UTF-8" />
+    <title>Nakup vinjet</title>
+</h:head>
+
+<h:body>
+    <f:view>
+
+        [ <a href="#{facesContext.externalContext.applicationContextPath}/faces/prikazPacienti.xhtml">Pregled pacientov</a> |
+        <a href="#{facesContext.externalContext.applicationContextPath}/faces/prikazObiski.xhtml">Pregled obiskov</a> |
+        <a href="#{facesContext.externalContext.applicationContextPath}/faces/addPacient.xhtml">Dodaj pacienta</a> |
+        <a href="#{facesContext.externalContext.applicationContextPath}/faces/addZdravnik.xhtml">Dodaj zdravnika</a> |
+        <a href="#{facesContext.externalContext.applicationContextPath}/faces/addObisk.xhtml">Dodaj obisk</a> ]
+        <hr />
+
+        <f:metadata>
+            <f:viewParam name="mailPacient" value="#{pacient.mail}" />
+        </f:metadata>
+
+        Ime pacienta: <b>#{pacienti.pacient.ime}</b><br/>
+        Priimek pacienta: <b>#{pacienti.pacient.priimek}</b><br/>
+        Elektronski naslov pacienta: <b>#{pacienti.pacient.mail}</b><br/>
+
+    </f:view>
+</h:body>
+</html>
