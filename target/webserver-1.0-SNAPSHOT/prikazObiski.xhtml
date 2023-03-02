@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <meta charset="UTF-8" />
+    <title>Keep It Simple &amp; Stupid</title>
+</h:head>
+
+<h:body>
+    <f:view>
+        <h:form>
+
+            [ <a href="#{facesContext.externalContext.applicationContextPath}/faces/prikazPacienti.xhtml">Pregled pacientov</a> |
+             <a href="#{facesContext.externalContext.applicationContextPath}/faces/prikazObiski.xhtml">Pregled obiskov</a> |
+            <a href="#{facesContext.externalContext.applicationContextPath}/faces/addPacient.xhtml">Dodaj pacienta</a> |
+            <a href="#{facesContext.externalContext.applicationContextPath}/faces/addZdravnik.xhtml">Dodaj zdravnika</a> |
+            <a href="#{facesContext.externalContext.applicationContextPath}/faces/addObisk.xhtml">Dodaj obisk</a> ]
+            <hr />
+
+            Tabela obiskov: <br />
+
+            <h:dataTable value="#{obiski.getObiski()}" var="obisk">
+                <h:column>#{obisk.stObiska}</h:column>
+                <h:column>#{obisk.pacient.ime} #{obisk.pacient.priimek} #{obisk.pacient.mail}</h:column>
+                <h:column>#{obisk.zdravnik.ime} #{obisk.zdravnik.priimek}</h:column>
+                <h:column>#{obisk.zdravnik.ime} #{obisk.zdravnik.priimek}</h:column>
+                <h:column>#{obisk.opisDiangoze}</h:column>
+                <h:column>
+                    <h:link value="Edit" outcome="edit">
+                        <f:param name="email" value="#{obisk.stObiska}" />
+                    </h:link> |
+                    <h:commandLink value="Delete" actionListener="#{obiski.deleteObisk(obisk.stObiska)}" />
+                </h:column>
+            </h:dataTable>
+
+        </h:form>
+    </f:view>
+</h:body>
+
+</html>

@@ -1,6 +1,8 @@
 package com.example.webserver.jsf;
 
 import com.example.webserver.dao.ObiskMemoryDAO;
+import com.example.webserver.dao.PacientMemoryDAO;
+import com.example.webserver.dao.ZdravnikMemoryDAO;
 import com.example.webserver.vao.Obisk;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
@@ -12,17 +14,30 @@ import java.util.List;
 @Named("obiski")
 public class ObiskJSFBean implements Serializable {
 
+    private PacientMemoryDAO pacientDao = PacientMemoryDAO.getInstance();
+    private ZdravnikMemoryDAO zdravnikDao = ZdravnikMemoryDAO.getInstance();
+
     private static List<Obisk> obiski;
 
     private Obisk obisk = new Obisk();
 
     private int stObiska;
 
+    private String mailPacienta;
+
+    private String mailZdravnika;
+
+    private String opisDiagnoze;
+
     private ObiskMemoryDAO obiskDao = ObiskMemoryDAO.getInstance();
 
     // create operacija
 
-    public void createObisk() { obiskDao.shraniObisk(obisk); }
+    public void createObisk() {
+        obisk.setPacient(pacientDao.najdiPacienta(mailPacienta));
+        obisk.setZdravnik(zdravnikDao.najdiZdravnika(mailZdravnika));
+        obiskDao.shraniObisk(obisk);
+    }
 
     // read operacija
 
@@ -60,5 +75,29 @@ public class ObiskJSFBean implements Serializable {
 
     public void setStObiska(int stObiska) {
         this.stObiska = stObiska;
+    }
+
+    public String getMailPacienta() {
+        return mailPacienta;
+    }
+
+    public void setMailPacienta(String mailPacienta) {
+        this.mailPacienta = mailPacienta;
+    }
+
+    public String getMailZdravnika() {
+        return mailZdravnika;
+    }
+
+    public void setMailZdravnika(String mailZdravnika) {
+        this.mailZdravnika = mailZdravnika;
+    }
+
+    public String getOpisDiagnoze() {
+        return opisDiagnoze;
+    }
+
+    public void setOpisDiagnoze(String opisDiagnoze) {
+        this.opisDiagnoze = opisDiagnoze;
     }
 }

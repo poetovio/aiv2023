@@ -11,7 +11,7 @@ public class Obisk {
         this.stObiska = stObiska;
         this.pacient = pacient;
         this.zdravnik = zdravnik;
-        this.datum = datum;
+        this.datum = LocalDate.now();
         this.opisDiangoze = opisDiangoze;
         this.zdravila = new ArrayList<String>();
     }

@@ -7,6 +7,8 @@ public class DruzinskiZdravnik {
     private String ime;
     private String priimek;
     private String mail;
+    private int kvota;
+    private ArrayList<Pacient> pacienti;
 
     public String getIme() {
         return ime;
@@ -48,8 +50,7 @@ public class DruzinskiZdravnik {
         this.pacienti = pacienti;
     }
 
-    private int kvota;
-    private ArrayList<Pacient> pacienti;
+
 
 
 }

@@ -12,6 +12,7 @@ public class ZdravnikMemoryDAO implements ZdravnikDAO {
 
     private static ZdravnikMemoryDAO instance = new ZdravnikMemoryDAO();
 
+
     public static ZdravnikMemoryDAO getInstance() { return instance; }
 
     @Override
