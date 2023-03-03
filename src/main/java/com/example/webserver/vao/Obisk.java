@@ -1,6 +1,7 @@
 package com.example.webserver.vao;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Obisk {
@@ -14,6 +15,7 @@ public class Obisk {
         this.datum = LocalDate.now();
         this.opisDiangoze = opisDiangoze;
         this.zdravila = new ArrayList<String>();
+        this.datumObiska = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
 
     private int stObiska;
@@ -22,6 +24,7 @@ public class Obisk {
     private DruzinskiZdravnik zdravnik;
     private String opisDiangoze;
     private ArrayList<String> zdravila;
+    private String datumObiska;
 
     public Pacient getPacient() {
         return pacient;
@@ -69,5 +72,13 @@ public class Obisk {
 
     public void setZdravila(ArrayList<String> zdravila) {
         this.zdravila = zdravila;
+    }
+
+    public String getDatumObiska() {
+        return datumObiska;
+    }
+
+    public void setDatumObiska(String datumObiska) {
+        this.datumObiska = datumObiska;
     }
 }

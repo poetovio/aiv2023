@@ -21,8 +21,7 @@
 
             <h:dataTable value="#{obiski.getObiski()}" var="obisk">
                 <h:column>#{obisk.stObiska}</h:column>
-                <h:column>#{obisk.pacient.ime} #{obisk.pacient.priimek} #{obisk.pacient.mail}</h:column>
-                <h:column>#{obisk.zdravnik.ime} #{obisk.zdravnik.priimek}</h:column>
+                <h:column>#{obisk.pacient.ime} #{obisk.pacient.priimek}</h:column>
                 <h:column>#{obisk.zdravnik.ime} #{obisk.zdravnik.priimek}</h:column>
                 <h:column>#{obisk.opisDiangoze}</h:column>
                 <h:column>

@@ -22,7 +22,7 @@ public class PacientMemoryDAO implements PacientDAO {
     @Override
     public Pacient najdiPacienta(String mail) {
         for (Pacient pacient: pacienti) {
-            if(pacient.getMail() == mail) { return pacient; }
+            if(pacient.getMail().equals(mail)) { return pacient; }
         }
         return null;
     }

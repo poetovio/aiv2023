@@ -7,6 +7,8 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Named("pacienti")
@@ -21,14 +23,19 @@ public class PacientJSFBean implements Serializable {
 
     private String imeZdravnika;
 
+    private String datumRojstva;
+
     private PacientMemoryDAO pacientDao = PacientMemoryDAO.getInstance();
 
     private ZdravnikMemoryDAO zdravnikDao = ZdravnikMemoryDAO.getInstance();
+
+    private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     // create operacija
     public void createPacient() {
         String[] parts = imeZdravnika.split(" ");
         pacient.setZdravnik(zdravnikDao.najdiZdravnika(parts[0], parts[1]));
+        pacient.setDatumRojstva(LocalDate.parse(datumRojstva, dtf));
         pacientDao.shraniPacienta(pacient);
     }
 
@@ -59,5 +66,13 @@ public class PacientJSFBean implements Serializable {
 
     public void setImeZdravnika(String imeZdravnika) {
         this.imeZdravnika = imeZdravnika;
+    }
+
+    public String getDatumRojstva() {
+        return datumRojstva;
+    }
+
+    public void setDatumRojstva(String datum) {
+        this.datumRojstva = datum;
     }
 }

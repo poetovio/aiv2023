@@ -34,6 +34,7 @@ public class ObiskJSFBean implements Serializable {
     // create operacija
 
     public void createObisk() {
+        // System.out.println(pacientDao.najdiPacienta(mailPacienta));
         obisk.setPacient(pacientDao.najdiPacienta(mailPacienta));
         obisk.setZdravnik(zdravnikDao.najdiZdravnika(mailZdravnika));
         obiskDao.shraniObisk(obisk);
