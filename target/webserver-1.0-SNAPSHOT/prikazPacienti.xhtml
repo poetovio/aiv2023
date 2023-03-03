@@ -3,7 +3,7 @@
 
 <h:head>
     <meta charset="UTF-8" />
-    <title>Keep It Simple &amp; Stupid</title>
+    <title>Prikaz pacientov</title>
 </h:head>
 
 <h:body>
@@ -49,6 +49,9 @@
                     </h:link>
                 </h:column>
                 <h:column>
+                    <h:link value="Podrobnosti" outcome="detailZdravnik">
+                        <f:param name="mail" value="#{zdravnik.mail}" />
+                    </h:link> |
                     <h:link value="Edit" outcome="edit">
                         <f:param name="email" value="#{zdravnik.mail}" />
                     </h:link> |

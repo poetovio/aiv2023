@@ -50,7 +50,8 @@ public class DruzinskiZdravnik {
         this.pacienti = pacienti;
     }
 
-
+    @Override
+    public String toString() { return ime + " " + priimek; }
 
 
 }

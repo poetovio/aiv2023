@@ -3,7 +3,7 @@
 
 <h:head>
     <meta charset="UTF-8" />
-    <title>Podrobnosti obiska</title>
+    <title>Podrobnosti zdravnika</title>
 </h:head>
 
 <h:body>
@@ -17,14 +17,12 @@
         <hr />
 
         <f:metadata>
-            <f:viewParam name="stevilkaObiska" value="#{obisk.stObiska}" />
+            <f:viewParam name="mailZdravnik" value="#{zdravnik.mail}" />
         </f:metadata>
 
-        Številka obiska: <b>#{obiski.obisk.stObiska}</b><br/>
-        Pacient: <b>#{obiski.obisk.pacient.ime} #{obiski.obisk.pacient.priimek}</b><br/>
-        Zdravnik: <b>#{obiski.obisk.zdravnik.ime} #{obiski.obisk.zdravnik.priimek}</b><br/>
-        Datum obiska: <b>#{obiski.obisk.datum}</b><br/>
-        Opis diagnoze: <b>#{obiski.obisk.opisDiangoze}</b><br/>
+        Ime zdravnika: <b>#{dohtarji.zdravnik.ime}</b><br/>
+        Priimek zdravnika: <b>#{dohtarji.zdravnik.priimek}</b><br/>
+        Elektronski naslov zdravnika: <b>#{dohtarji.zdravnik.mail}</b><br/>
 
     </f:view>
 </h:body>

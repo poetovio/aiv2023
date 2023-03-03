@@ -26,6 +26,11 @@
             E-mail: <h:inputText id="n_email" value="#{pacienti.pacient.mail}" validatorMessage="Insert valid e-mail">
             <f:validateRequired />
         </h:inputText> * <h:message for="n_email" style="color:red" />
+            Zdravnik:
+            <h:selectOneMenu value="#{pacienti.imeZdravnika}" >
+                <f:selectItems value="#{dohtarji.getAllZdravniki()}"/>
+            </h:selectOneMenu>
+            Posebnosti: <h:inputText id="n_posebnosti" value="#{pacienti.pacient.posebnosti}"/><br/>
             <br/><br/>
             <h:commandButton value="Save" action="#{pacienti.createPacient()}"/>
 

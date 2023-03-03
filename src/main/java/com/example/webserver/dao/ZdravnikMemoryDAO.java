@@ -42,4 +42,11 @@ public class ZdravnikMemoryDAO implements ZdravnikDAO {
             if(i.next().getMail().equals(mail)) { i.remove(); }
         }
     }
+
+    public DruzinskiZdravnik najdiZdravnika(String ime, String priimek) {
+        for (DruzinskiZdravnik zdravnik: zdravniki) {
+            if(zdravnik.getIme().equals(ime) && zdravnik.getPriimek().equals(priimek)) { return zdravnik; }
+        }
+        return null;
+    }
 }

@@ -10,6 +10,7 @@ public class Pacient {
     private String mail;
     private LocalDate datumRojstva;
     private String posebnosti;
+    private DruzinskiZdravnik zdravnik;
 
     public Pacient() { this("", "", ""); }
 
@@ -19,6 +20,7 @@ public class Pacient {
         this.mail = mail;
         this.datumRojstva = LocalDate.now();
         this.posebnosti = "";
+        this.zdravnik = null;
     }
 
 
@@ -62,4 +64,11 @@ public class Pacient {
         this.posebnosti = posebnosti;
     }
 
+    public DruzinskiZdravnik getZdravnik() {
+        return zdravnik;
+    }
+
+    public void setZdravnik(DruzinskiZdravnik zdravnik) {
+        this.zdravnik = zdravnik;
+    }
 }
