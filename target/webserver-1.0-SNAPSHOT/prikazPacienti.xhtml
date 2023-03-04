@@ -31,10 +31,10 @@
                     <h:link value="Podrobnosti" outcome="detailPacient">
                         <f:param name="mail" value="#{pacient.mail}" />
                     </h:link> |
-                    <h:link value="Edit" outcome="addPacient">
-                        <f:param name="email" value="#{pacient.mail}" />
+                    <h:link value="Uredi" outcome="addPacient">
+                        <f:param name="mail" value="#{pacient.mail}" />
                     </h:link> |
-                    <h:commandLink onclick="if (! confirm('Želite izbrisati pacienta?')) return false"  class="edit_icon" value="Delete" action="#{pacienti.deletePacient(pacient.mail)}" />
+                    <h:commandLink onclick="if (! confirm('Želite izbrisati pacienta?')) return false"  class="edit_icon" value="Izbrisi" action="#{pacienti.deletePacient(pacient.mail)}" />
                 </h:column>
             </h:dataTable>
 
@@ -52,7 +52,7 @@
                     <h:link value="Podrobnosti" outcome="detailZdravnik">
                         <f:param name="mail" value="#{zdravnik.mail}" />
                     </h:link> |
-                    <h:link value="Edit" outcome="addZdravnik">
+                    <h:link value="Uredi" outcome="addZdravnik">
                         <f:param name="mail" value="#{zdravnik.mail}" />
                     </h:link> |
                     <h:commandLink onclick="if (! confirm('Želite izbrisati zdravnika?')) return false" class="edit_icon" value="Delete" action="#{dohtarji.deleteZdravnik(zdravnik.mail)}"/>

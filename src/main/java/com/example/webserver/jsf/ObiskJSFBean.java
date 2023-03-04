@@ -80,7 +80,7 @@ public class ObiskJSFBean implements Serializable {
         obisk = obiskDao.najdiObisk(stObiska);
 
         if(obisk == null) { obisk = new Obisk(); mailPacienta = ""; mailZdravnika = "";}
-        else { mailPacienta = obisk.getPacient().getMail(); mailZdravnika = obisk.getPacient().getMail(); }
+        else { mailPacienta = obisk.getPacient().getMail(); mailZdravnika = obisk.getZdravnik().getMail(); }
     }
 
     public String getMailPacienta() {

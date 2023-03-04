@@ -23,15 +23,14 @@
                 <h:column>#{obisk.stObiska}</h:column>
                 <h:column>#{obisk.pacient.ime} #{obisk.pacient.priimek}</h:column>
                 <h:column>#{obisk.zdravnik.ime} #{obisk.zdravnik.priimek}</h:column>
-                <h:column>#{obisk.opisDiangoze}</h:column>
                 <h:column>
                     <h:link value="Podrobnosti" outcome="detailObisk">
                         <f:param name="stObiska" value="#{obisk.stObiska}" />
                     </h:link> |
-                    <h:link value="Edit" outcome="addObisk">
+                    <h:link value="Uredi" outcome="addObisk">
                         <f:param name="stObiska" value="#{obisk.stObiska}" />
                     </h:link> |
-                    <h:commandLink onclick="if (! confirm('Želite izbrisati obisk?')) return false"  class="edit_icon" value="Delete" action="#{obiski.deleteObisk(obisk.stObiska)}" />
+                    <h:commandLink onclick="if (! confirm('Želite izbrisati obisk?')) return false"  class="edit_icon" value="Izbrisi" action="#{obiski.deleteObisk(obisk.stObiska)}" />
                 </h:column>
             </h:dataTable>
 
