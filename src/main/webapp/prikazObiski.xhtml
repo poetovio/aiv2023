@@ -28,7 +28,7 @@
                     <h:link value="Podrobnosti" outcome="detailObisk">
                         <f:param name="stObiska" value="#{obisk.stObiska}" />
                     </h:link> |
-                    <h:link value="Edit" outcome="addObisk">
+                    <h:link value="Uredi" outcome="addObisk">
                         <f:param name="stObiska" value="#{obisk.stObiska}" />
                     </h:link> |
                     <h:commandLink onclick="if (! confirm('Želite izbrisati obisk?')) return false"  class="edit_icon" value="Delete" action="#{obiski.deleteObisk(obisk.stObiska)}" />
