@@ -65,6 +65,7 @@ public class PacientJSFBean implements Serializable {
         pacient = pacientDao.najdiPacienta(mail);
 
         if(pacient == null) { datumRojstva = ""; pacient = new Pacient(); }
+        else { datumRojstva = pacient.getDatumRojstva().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")); }
     }
 
     public String getImeZdravnika() {
