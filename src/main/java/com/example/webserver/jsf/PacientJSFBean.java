@@ -64,8 +64,17 @@ public class PacientJSFBean implements Serializable {
         this.mail = mail;
         pacient = pacientDao.najdiPacienta(mail);
 
-        if(pacient == null) { datumRojstva = ""; pacient = new Pacient(); }
-        else { datumRojstva = pacient.getDatumRojstva().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")); }
+        if(pacient == null) { datumRojstva = ""; pacient = new Pacient(); imeZdravnika = "Brez zdravnika"; }
+        else {
+            datumRojstva = pacient.getDatumRojstva().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+            if(pacient.getZdravnik() != null) {
+
+                imeZdravnika = pacient.getZdravnik().toString();
+            } else {
+                imeZdravnika = "Brez zdravnika";
+            }
+        }
     }
 
     public String getImeZdravnika() {
