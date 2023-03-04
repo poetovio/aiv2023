@@ -58,7 +58,9 @@ public class PacientJSFBean implements Serializable {
 
     public void deletePacient(String mail) {
         Pacient pacient = pacientDao.najdiPacienta(mail);
-        pacient.getZdravnik().odstraniPacienta(pacient);
+
+        if(pacient.getZdravnik() != null) { pacient.getZdravnik().odstraniPacienta(pacient); }
+
         pacientDao.izbrisiPacienta(mail);
     }
 
