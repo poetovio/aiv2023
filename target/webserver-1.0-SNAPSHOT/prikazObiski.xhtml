@@ -12,7 +12,7 @@
 
             [ <a href="#{facesContext.externalContext.applicationContextPath}/faces/prikazPacienti.xhtml">Pregled pacientov</a> |
              <a href="#{facesContext.externalContext.applicationContextPath}/faces/prikazObiski.xhtml">Pregled obiskov</a> |
-            <a href="#{facesContext.externalContext.applicationContextPath}/faces/addPacient.xhtml">Dodaj pacienta</a> |
+            <a href="#{facesContext.externalContext.applicationContextPath}/faces/addPacient.xhtml?mail=NULL">Dodaj pacienta</a> |
             <a href="#{facesContext.externalContext.applicationContextPath}/faces/addZdravnik.xhtml">Dodaj zdravnika</a> |
             <a href="#{facesContext.externalContext.applicationContextPath}/faces/addObisk.xhtml">Dodaj obisk</a> ]
             <hr />
@@ -28,10 +28,10 @@
                     <h:link value="Podrobnosti" outcome="detailObisk">
                         <f:param name="stObiska" value="#{obisk.stObiska}" />
                     </h:link> |
-                    <h:link value="Edit" outcome="edit">
-                        <f:param name="email" value="#{obisk.stObiska}" />
+                    <h:link value="Edit" outcome="addObisk">
+                        <f:param name="stObiska" value="#{obisk.stObiska}" />
                     </h:link> |
-                    <h:commandLink onclick="if (! confirm('Želite izbrisati nakup?')) return false" value="Delete" action="#{obiski.deleteObisk(obisk.stObiska)}" />
+                    <h:commandLink onclick="if (! confirm('Želite izbrisati obisk?')) return false"  class="edit_icon" value="Delete" action="#{obiski.deleteObisk(obisk.stObiska)}" />
                 </h:column>
             </h:dataTable>
 

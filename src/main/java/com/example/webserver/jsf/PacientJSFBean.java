@@ -58,7 +58,12 @@ public class PacientJSFBean implements Serializable {
 
     public String getMail() { return mail; }
 
-    public void setMail(String mail) { this.mail = mail; }
+    public void setMail(String mail) {
+        this.mail = mail;
+        pacient = pacientDao.najdiPacienta(mail);
+
+        if(pacient == null) { datumRojstva = ""; pacient = new Pacient(); }
+    }
 
     public String getImeZdravnika() {
         return imeZdravnika;

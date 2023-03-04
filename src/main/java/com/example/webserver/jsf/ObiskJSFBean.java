@@ -76,6 +76,10 @@ public class ObiskJSFBean implements Serializable {
 
     public void setStObiska(int stObiska) {
         this.stObiska = stObiska;
+
+        obisk = obiskDao.najdiObisk(stObiska);
+
+        if(obisk == null) { obisk = new Obisk(); }
     }
 
     public String getMailPacienta() {

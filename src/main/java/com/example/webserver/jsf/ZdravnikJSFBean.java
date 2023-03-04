@@ -43,7 +43,12 @@ public class ZdravnikJSFBean implements Serializable {
 
     public String getMail() { return mail; }
 
-    public void setMail(String mail) { this.mail = mail; }
+    public void setMail(String mail) {
+        this.mail = mail;
+        zdravnik = zdravnikDao.najdiZdravnika(mail);
+
+        if(zdravnik == null) { zdravnik = new DruzinskiZdravnik(); }
+    }
 
     public String getImeZdravnika() {
         return imeZdravnika;

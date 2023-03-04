@@ -12,8 +12,8 @@
 
             [ <a href="#{facesContext.externalContext.applicationContextPath}/faces/prikazPacienti.xhtml">Pregled</a> |
             <a href="#{facesContext.externalContext.applicationContextPath}/faces/prikazObiski.xhtml">Pregled obiskov</a> |
-            <a href="#{facesContext.externalContext.applicationContextPath}/faces/addPacient.xhtml">Dodaj pacienta</a> |
-            <a href="#{facesContext.externalContext.applicationContextPath}/faces/addZdravnik.xhtml">Dodaj zdravnika</a> |
+            <a href="#{facesContext.externalContext.applicationContextPath}/faces/addPacient.xhtml?mail=NULL">Dodaj pacienta</a> |
+            <a href="#{facesContext.externalContext.applicationContextPath}/faces/addZdravnik.xhtml?mail=NULL">Dodaj zdravnika</a> |
             <a href="#{facesContext.externalContext.applicationContextPath}/faces/addObisk.xhtml">Dodaj obisk</a> ]
             <hr />
 
@@ -31,7 +31,7 @@
                     <h:link value="Podrobnosti" outcome="detailPacient">
                         <f:param name="mail" value="#{pacient.mail}" />
                     </h:link> |
-                    <h:link value="Edit" outcome="edit">
+                    <h:link value="Edit" outcome="addPacient">
                         <f:param name="email" value="#{pacient.mail}" />
                     </h:link> |
                     <h:commandLink onclick="if (! confirm('Želite izbrisati pacienta?')) return false"  class="edit_icon" value="Delete" action="#{pacienti.deletePacient(pacient.mail)}" />
@@ -52,8 +52,8 @@
                     <h:link value="Podrobnosti" outcome="detailZdravnik">
                         <f:param name="mail" value="#{zdravnik.mail}" />
                     </h:link> |
-                    <h:link value="Edit" outcome="edit">
-                        <f:param name="email" value="#{zdravnik.mail}" />
+                    <h:link value="Edit" outcome="addZdravnik">
+                        <f:param name="mail" value="#{zdravnik.mail}" />
                     </h:link> |
                     <h:commandLink onclick="if (! confirm('Želite izbrisati zdravnika?')) return false" class="edit_icon" value="Delete" action="#{dohtarji.deleteZdravnik(zdravnik.mail)}"/>
                 </h:column>
