@@ -36,9 +36,14 @@ public class PacientJSFBean implements Serializable {
     // create operacija
     public void createPacient() {
         String[] parts = imeZdravnika.split(" ");
+
+        if(pacient.getZdravnik() != null) { pacient.getZdravnik().odstraniPacienta(pacient); }
+
         pacient.setZdravnik(zdravnikDao.najdiZdravnika(parts[0], parts[1]));
         pacient.setDatumRojstva(LocalDate.parse(datumRojstva, dtf));
         pacientDao.shraniPacienta(pacient);
+
+        if(pacient.getZdravnik() != null && !pacient.getZdravnik().zeImaPacienta(pacient)) { pacient.getZdravnik().getPacienti().add(pacient); }
     }
 
     // read operacija
@@ -51,7 +56,11 @@ public class PacientJSFBean implements Serializable {
 
     // delete operacija
 
-    public void deletePacient(String mail) { pacientDao.izbrisiPacienta(mail); }
+    public void deletePacient(String mail) {
+        Pacient pacient = pacientDao.najdiPacienta(mail);
+        pacient.getZdravnik().odstraniPacienta(pacient);
+        pacientDao.izbrisiPacienta(mail);
+    }
 
     public Pacient getPacient() { return pacient; }
 
@@ -104,6 +113,8 @@ public class PacientJSFBean implements Serializable {
 
         return pacienti;
     }
+
+    // pacienti, ki nimajo zdravnika
 
     public List<Pacient> pacientiBrezZdravnika() {
         List<Pacient> pacienti = Collections.synchronizedList(new ArrayList<Pacient>());

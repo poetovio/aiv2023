@@ -2,6 +2,7 @@ package com.example.webserver.jsf;
 
 import com.example.webserver.dao.ZdravnikMemoryDAO;
 import com.example.webserver.vao.DruzinskiZdravnik;
+import com.example.webserver.vao.Pacient;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 
@@ -26,7 +27,7 @@ public class ZdravnikJSFBean implements Serializable {
 
 
     // create operacija
-    public void createZdravnik()  { zdravnikDao.shraniZdravnika(zdravnik); }
+    public void createZdravnik()  { zdravnik.setPacienti(new ArrayList<Pacient>()); zdravnikDao.shraniZdravnika(zdravnik); }
 
 
     // read operacija
@@ -49,7 +50,7 @@ public class ZdravnikJSFBean implements Serializable {
         this.mail = mail;
         zdravnik = zdravnikDao.najdiZdravnika(mail);
 
-        if(zdravnik == null) { zdravnik = new DruzinskiZdravnik(); }
+        if(zdravnik == null) { zdravnik = new DruzinskiZdravnik(); zdravnik.setPacienti(new ArrayList<Pacient>());}
     }
 
     // funkcija za prikazovanje imena zdravnikov ter dodajanje pacienta brez dodanega zdravnika
@@ -63,6 +64,10 @@ public class ZdravnikJSFBean implements Serializable {
 
         return imena;
     }
+
+    // funkcija, ki vrne število pacientov, ki jih ima nek zdravnik
+
+    public int steviloPacientov(DruzinskiZdravnik zdravnik) { return zdravnik.getPacienti().size(); }
 
     public String getImeZdravnika() {
         return imeZdravnika;

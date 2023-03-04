@@ -1,6 +1,7 @@
 package com.example.webserver.vao;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class DruzinskiZdravnik {
 
@@ -48,6 +49,19 @@ public class DruzinskiZdravnik {
 
     public void setPacienti(ArrayList<Pacient> pacienti) {
         this.pacienti = pacienti;
+    }
+
+    public boolean zeImaPacienta(Pacient pacient) {
+        for(Pacient human: pacienti) {
+            if(human.equals(pacient)) { return true; }
+        }
+        return false;
+    }
+
+    public void odstraniPacienta(Pacient pacient) {
+        for(Iterator<Pacient> i = pacienti.iterator(); i.hasNext();) {
+            if(i.next().equals(pacient)) { i.remove(); }
+        }
     }
 
     @Override

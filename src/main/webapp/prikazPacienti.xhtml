@@ -48,6 +48,7 @@
                         <f:param name="email" value="#{zdravnik.mail}" />
                     </h:link>
                 </h:column>
+                <h:column>#{dohtarji.steviloPacientov(zdravnik)}</h:column>
                 <h:column>
                     <h:link value="Podrobnosti" outcome="detailZdravnik">
                         <f:param name="mail" value="#{zdravnik.mail}" />
