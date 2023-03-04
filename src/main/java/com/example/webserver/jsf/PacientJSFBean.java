@@ -9,6 +9,8 @@ import jakarta.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Named("pacienti")
@@ -79,5 +81,27 @@ public class PacientJSFBean implements Serializable {
 
     public void setDatumRojstva(String datum) {
         this.datumRojstva = datum;
+    }
+
+    // pacienti, ki imajo zdravnika
+
+    public List<Pacient> pacientiZZdravnikom() {
+        List<Pacient> pacienti = Collections.synchronizedList(new ArrayList<Pacient>());
+
+        for(Pacient pacient: pacientDao.getPacienti()) {
+            if(pacient.getZdravnik() != null) { pacienti.add(pacient); }
+        }
+
+        return pacienti;
+    }
+
+    public List<Pacient> pacientiBrezZdravnika() {
+        List<Pacient> pacienti = Collections.synchronizedList(new ArrayList<Pacient>());
+
+        for(Pacient pacient: pacientDao.getPacienti()) {
+            if(pacient.getZdravnik() == null) { pacienti.add(pacient); }
+        }
+
+        return pacienti;
     }
 }

@@ -5,6 +5,8 @@ import com.example.webserver.vao.DruzinskiZdravnik;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.io.Serializable;
 
@@ -48,6 +50,18 @@ public class ZdravnikJSFBean implements Serializable {
         zdravnik = zdravnikDao.najdiZdravnika(mail);
 
         if(zdravnik == null) { zdravnik = new DruzinskiZdravnik(); }
+    }
+
+    // funkcija za prikazovanje imena zdravnikov ter dodajanje pacienta brez dodanega zdravnika
+
+    public List<String> getImenaZdravnikov() {
+        List<String> imena = Collections.synchronizedList(new ArrayList<String>());
+
+        imena.add("Brez zdravnika");
+
+        for(DruzinskiZdravnik zdravnik: zdravnikDao.getZdravniki()) { imena.add(zdravnik.getIme() + " " + zdravnik.getPriimek()); }
+
+        return imena;
     }
 
     public String getImeZdravnika() {

@@ -29,7 +29,7 @@
             Datum rojstva: <h:inputText id="n_datumRojstva" value="#{pacienti.datumRojstva}"/><br/>
             Zdravnik:
             <h:selectOneMenu value="#{pacienti.imeZdravnika}" >
-                <f:selectItems value="#{dohtarji.getAllZdravniki()}"/>
+                <f:selectItems value="#{dohtarji.getImenaZdravnikov()}"/>
             </h:selectOneMenu><br />
             Posebnosti: <h:inputText id="n_posebnosti" value="#{pacienti.pacient.posebnosti}"/><br/>
             <br/><br/>
