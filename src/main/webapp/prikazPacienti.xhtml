@@ -34,7 +34,7 @@
                     <h:link value="Edit" outcome="edit">
                         <f:param name="email" value="#{pacient.mail}" />
                     </h:link> |
-                    <h:commandLink value="Delete" actionListener="#{pacienti.deletePacient(pacient.mail)}" />
+                    <h:commandLink onclick="if (! confirm('Želite izbrisati pacienta?')) return false"  class="edit_icon" value="Delete" action="#{pacienti.deletePacient(pacient.mail)}" />
                 </h:column>
             </h:dataTable>
 
@@ -55,7 +55,7 @@
                     <h:link value="Edit" outcome="edit">
                         <f:param name="email" value="#{zdravnik.mail}" />
                     </h:link> |
-                    <h:commandLink value="Delete" actionListener="#{dohtarji.deleteZdravnik(zdravnik.mail)}" />
+                    <h:commandLink onclick="if (! confirm('Želite izbrisati zdravnika?')) return false" class="edit_icon" value="Delete" action="#{dohtarji.deleteZdravnik(zdravnik.mail)}"/>
                 </h:column>
             </h:dataTable>
 

@@ -31,7 +31,7 @@
                     <h:link value="Edit" outcome="edit">
                         <f:param name="email" value="#{obisk.stObiska}" />
                     </h:link> |
-                    <h:commandLink value="Delete" actionListener="#{obiski.deleteObisk(obisk.stObiska)}" />
+                    <h:commandLink onclick="if (! confirm('Želite izbrisati nakup?')) return false" value="Delete" action="#{obiski.deleteObisk(obisk.stObiska)}" />
                 </h:column>
             </h:dataTable>
 
