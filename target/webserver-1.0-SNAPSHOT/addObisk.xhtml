@@ -10,7 +10,7 @@
     <f:view>
         <h:form>
 
-            [ <a href="#{facesContext.externalContext.applicationContextPath}/faces/prikazPacienti.xhtml">Pregled pacientov</a> |
+            [ <a href="#{facesContext.externalContext.applicationContextPath}/faces/prikazPacienti.xhtml">Pregled</a> |
             <a href="#{facesContext.externalContext.applicationContextPath}/faces/prikazObiski.xhtml">Pregled obiskov</a> |
             <a href="#{facesContext.externalContext.applicationContextPath}/faces/addPacient.xhtml?mail=NULL">Dodaj pacienta</a> |
             <a href="#{facesContext.externalContext.applicationContextPath}/faces/addZdravnik.xhtml?mail=NULL">Dodaj zdravnika</a> |
@@ -18,7 +18,7 @@
             <hr />
 
             <f:metadata>
-                <f:viewParam name="stObiska" value="#{obiski.obisk.stObiska}" />
+                <f:viewParam name="stObiska" value="#{obiski.stObiska}" />
             </f:metadata>
 
             Številka obiska: <h:inputText id="n_ime" value="#{obiski.obisk.stObiska}" /><br/>
