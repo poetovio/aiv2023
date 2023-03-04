@@ -3,7 +3,7 @@
 
 <h:head>
     <meta charset="UTF-8" />
-    <title>Prikaz pacientov</title>
+    <title>Prikaz pacientov brez zdravnika</title>
 </h:head>
 
 <h:body>
@@ -18,9 +18,9 @@
             <a href="#{facesContext.externalContext.applicationContextPath}/faces/addObisk.xhtml?stObiska=0">Dodaj obisk</a> ]
             <hr />
 
-            Tabela pacientov, ki imajo zdravnika: <br />
+            Tabela pacientov, ki nimajo zdravnika: <br />
 
-            <h:dataTable value="#{pacienti.pacientiZZdravnikom()}" var="pacient">
+            <h:dataTable value="#{pacienti.pacientiBrezZdravnika()}" var="pacient">
                 <h:column>#{pacient.ime}</h:column>
                 <h:column>#{pacient.priimek}</h:column>
                 <h:column>
@@ -36,28 +36,6 @@
                         <f:param name="mail" value="#{pacient.mail}" />
                     </h:link> |
                     <h:commandLink onclick="if (! confirm('Želite izbrisati pacienta?')) return false"  class="edit_icon" value="Izbrisi" action="#{pacienti.deletePacient(pacient.mail)}" />
-                </h:column>
-            </h:dataTable>
-
-            Tabela zdravnikov: <br />
-
-            <h:dataTable value="#{dohtarji.getAllZdravniki()}" var="zdravnik">
-                <h:column>#{zdravnik.ime}</h:column>
-                <h:column>#{zdravnik.priimek}</h:column>
-                <h:column>
-                    <h:link value="#{zdravnik.mail}" outcome="details">
-                        <f:param name="email" value="#{zdravnik.mail}" />
-                    </h:link>
-                </h:column>
-                <h:column>#{dohtarji.steviloPacientov(zdravnik)}</h:column>
-                <h:column>
-                    <h:link value="Podrobnosti" outcome="detailZdravnik">
-                        <f:param name="mail" value="#{zdravnik.mail}" />
-                    </h:link> |
-                    <h:link value="Uredi" outcome="addZdravnik">
-                        <f:param name="mail" value="#{zdravnik.mail}" />
-                    </h:link> |
-                    <h:commandLink onclick="if (! confirm('Želite izbrisati zdravnika?')) return false" class="edit_icon" value="Izbrisi" action="#{dohtarji.deleteZdravnik(zdravnik.mail)}"/>
                 </h:column>
             </h:dataTable>
 
