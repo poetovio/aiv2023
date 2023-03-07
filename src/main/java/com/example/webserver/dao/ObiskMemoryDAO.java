@@ -11,9 +11,16 @@ public class ObiskMemoryDAO implements ObiskDAO {
 
     private List<Obisk> obiski = Collections.synchronizedList(new ArrayList<Obisk>());
 
-    private static ObiskMemoryDAO instance = new ObiskMemoryDAO();
+    // pretvorba v singleton
 
-    public static ObiskMemoryDAO getInstance() { return instance; }
+    private ObiskMemoryDAO() {} // privatni konstruktor
+
+    private static ObiskMemoryDAO instance = null;
+
+    public static ObiskMemoryDAO getInstance() {
+        if(instance == null) { instance = new ObiskMemoryDAO(); }
+        return instance;
+    }
 
     @Override
     public List<Obisk> vrniObiske() { return obiski; }

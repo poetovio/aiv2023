@@ -12,9 +12,16 @@ public class PacientMemoryDAO implements PacientDAO {
 
     private List<Pacient> pacienti = Collections.synchronizedList(new ArrayList<Pacient>());
 
-    private static PacientMemoryDAO instance = new PacientMemoryDAO();
+    // pretvorba v singleton
 
-    public static PacientMemoryDAO getInstance() { return instance; }
+    private PacientMemoryDAO() {} // privatni konstruktor
+
+    private static PacientMemoryDAO instance = null;
+
+    public static PacientMemoryDAO getInstance() {
+        if(instance == null) { instance = new PacientMemoryDAO(); }
+        return instance;
+    }
 
     @Override
     public List<Pacient> getPacienti() { return pacienti; }

@@ -10,10 +10,17 @@ public class ZdravnikMemoryDAO implements ZdravnikDAO {
 
     private List<DruzinskiZdravnik> zdravniki = Collections.synchronizedList(new ArrayList<DruzinskiZdravnik>());
 
-    private static ZdravnikMemoryDAO instance = new ZdravnikMemoryDAO();
+    // pretvorba v Singleton
 
+    private ZdravnikMemoryDAO() {} // privatni konstruktor
 
-    public static ZdravnikMemoryDAO getInstance() { return instance; }
+    private static ZdravnikMemoryDAO instance = null;
+
+    // returna samo en instance
+    public static ZdravnikMemoryDAO getInstance() {
+        if (instance == null) { instance = new ZdravnikMemoryDAO(); }
+        return instance;
+    }
 
     @Override
     public List<DruzinskiZdravnik> getZdravniki() {
