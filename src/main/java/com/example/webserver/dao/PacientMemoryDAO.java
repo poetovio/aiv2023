@@ -18,7 +18,7 @@ public class PacientMemoryDAO implements PacientDAO {
 
     private static PacientMemoryDAO instance = null;
 
-    public static PacientMemoryDAO getInstance() {
+    public synchronized static PacientMemoryDAO getInstance() {
         if(instance == null) { instance = new PacientMemoryDAO(); }
         return instance;
     }

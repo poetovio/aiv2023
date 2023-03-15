@@ -17,7 +17,7 @@ public class ZdravnikMemoryDAO implements ZdravnikDAO {
     private static ZdravnikMemoryDAO instance = null;
 
     // returna samo en instance
-    public static ZdravnikMemoryDAO getInstance() {
+    public synchronized static ZdravnikMemoryDAO getInstance() {
         if (instance == null) { instance = new ZdravnikMemoryDAO(); }
         return instance;
     }
@@ -55,5 +55,13 @@ public class ZdravnikMemoryDAO implements ZdravnikDAO {
             if(zdravnik.getIme().equals(ime) && zdravnik.getPriimek().equals(priimek)) { return zdravnik; }
         }
         return null;
+    }
+
+    // Vaja 4
+    // funkcija, ki preveri, če ima nek zdravnik še dovolj prostora, da prevzame novega pacienta
+
+    public boolean prevzemPacienta(DruzinskiZdravnik zdravnik, int stPacientov) {
+        if(stPacientov < zdravnik.getKvota()) { zdravnik.setKvota(zdravnik.getKvota() + 1); return true; }
+        return false;
     }
 }
