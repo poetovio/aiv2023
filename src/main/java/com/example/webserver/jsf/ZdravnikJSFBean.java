@@ -25,9 +25,18 @@ public class ZdravnikJSFBean implements Serializable {
 
     private String imeZdravnika;
 
+    private int kvota;
+
+    public int getKvota() {
+        return kvota;
+    }
+
+    public void setKvota(int kvota) {
+        this.kvota = kvota;
+    }
 
     // create operacija
-    public void createZdravnik()  { zdravnik.setPacienti(new ArrayList<Pacient>()); zdravnikDao.shraniZdravnika(zdravnik); }
+    public void createZdravnik()  { zdravnik.setKvota(kvota); zdravnik.setPacienti(new ArrayList<Pacient>()); zdravnikDao.shraniZdravnika(zdravnik); }
 
 
     // read operacija

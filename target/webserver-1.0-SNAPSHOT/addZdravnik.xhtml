@@ -28,10 +28,9 @@
             E-mail: <h:inputText id="n_email" value="#{dohtarji.zdravnik.mail}" validatorMessage="Insert valid e-mail">
             <f:validateRequired />
         </h:inputText> * <h:message for="n_email" style="color:red" /><br />
-            Maksimalna kvota pacientov: <h:inputText id="n_kvota" value="#{dohtarji.zdravnik.kvota}" /><br/>
+            Maksimalna kvota pacientov: <h:inputText id="n_kvota" value="#{dohtarji.kvota}" /><br/>
             <br/><br/>
             <h:commandButton value="Save" action="#{dohtarji.createZdravnik()}"/>
-            <h:commandButton value="Test poslji mail" action="#{mail.testPoslji()}"/>
 
         </h:form>
     </f:view>

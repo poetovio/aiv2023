@@ -1,6 +1,8 @@
 package com.example.webserver.dao;
 
 import com.example.webserver.vao.DruzinskiZdravnik;
+import com.example.webserver.vao.Pacient;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -60,8 +62,8 @@ public class ZdravnikMemoryDAO implements ZdravnikDAO {
     // Vaja 4
     // funkcija, ki preveri, če ima nek zdravnik še dovolj prostora, da prevzame novega pacienta
 
-    public boolean prevzemPacienta(DruzinskiZdravnik zdravnik, int stPacientov) {
-        if(stPacientov < zdravnik.getKvota()) { zdravnik.setKvota(zdravnik.getKvota() + 1); return true; }
+    public boolean prevzemPacienta(DruzinskiZdravnik zdravnik, int stPacientov, Pacient pacient) {
+        if(stPacientov < zdravnik.getKvota()) { zdravnik.getPacienti().add(pacient); return true; }
         return false;
     }
 }

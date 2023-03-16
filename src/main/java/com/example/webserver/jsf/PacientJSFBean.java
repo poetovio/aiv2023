@@ -144,7 +144,7 @@ public class PacientJSFBean implements Serializable {
 
         DruzinskiZdravnik dohtar = zdravnikDao.najdiZdravnika(parts[0], parts[1]);
 
-        if(zdravnikDao.prevzemPacienta(dohtar, dohtar.getPacienti().size())) {
+        if(zdravnikDao.prevzemPacienta(dohtar, dohtar.getPacienti().size(), bolnik)) {
             fasada.sprejmiPacienta(bolnik, dohtar);
         } else {
             fasada.zavrniPacienta(bolnik, dohtar);

@@ -78,40 +78,33 @@ public class MailFacade implements Serializable {
         Context context = new InitialContext();
         Session seja = (Session) context.lookup("java:jboss/mail/MojMail");
 
-        System.out.println("LMAO");
+        Session sejaZdravnik = (Session) context.lookup("java:jboss/mail/MojMail");
+
         System.out.println(pacient.getMail());
 
         // pošlji sporočilo pacientu
         Message sporociloPacient = new MimeMessage(seja);
-        System.out.println("LMAO1");
         sporociloPacient.setFrom(new InternetAddress(from));
-        System.out.println("LMAO2");
         Address toAddress = new InternetAddress(pacient.getMail());
-        System.out.println("LMAO3");
         sporociloPacient.addRecipient(Message.RecipientType.TO, toAddress);
-        System.out.println("LMAO4");
         sporociloPacient.setSubject("Uspesno izbran zdravnik");
-        System.out.println("LMAO5");
 
         body = "Uspesno ste izbrali zdravnika " + zdravnik.toString() + ".";
 
-        System.out.println("LMAO6");
         sporociloPacient.setContent(body, "text/plain");
-        System.out.println("LMAO7");
         Transport.send(sporociloPacient);
-        System.out.println("LMAO8");
 
         // pošlji sporočilo zdravniku
 
         // pošlji sporočilo pacientu
-        Message sporociloZdravnik = new MimeMessage(mySession);
+        Message sporociloZdravnik = new MimeMessage(sejaZdravnik);
         sporociloZdravnik.setFrom(new InternetAddress(from));
         Address toAddressZdravnik = new InternetAddress(zdravnik.getMail());
         sporociloZdravnik.addRecipient(Message.RecipientType.TO, toAddressZdravnik);
         sporociloZdravnik.setSubject("Novo vpisan pacient");
 
         body = "Pacient " + pacient.toString() + " vas je izbral kot osebnega zdravnika." +
-                " Vasa kvota znasa zdaj " + zdravnik.getKvota() + ".";
+                " Stevilo vpisanih pacientov znasa " + zdravnik.getPacienti().size() + ".";
 
         sporociloPacient.setContent(body, "text/plain");
         Transport.send(sporociloPacient);
