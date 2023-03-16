@@ -71,4 +71,7 @@ public class Pacient {
     public void setZdravnik(DruzinskiZdravnik zdravnik) {
         this.zdravnik = zdravnik;
     }
+
+    @Override
+    public String toString() { return ime + " " + priimek; }
 }

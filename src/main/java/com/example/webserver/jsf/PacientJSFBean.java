@@ -1,7 +1,9 @@
 package com.example.webserver.jsf;
 
+import com.example.webserver.MailFacade;
 import com.example.webserver.dao.PacientMemoryDAO;
 import com.example.webserver.dao.ZdravnikMemoryDAO;
+import com.example.webserver.vao.DruzinskiZdravnik;
 import com.example.webserver.vao.Pacient;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
@@ -126,5 +128,28 @@ public class PacientJSFBean implements Serializable {
         }
 
         return pacienti;
+    }
+
+    // izberi zdravnika
+
+    public void izberiZdravnika() throws Exception {
+
+        Pacient bolnik = pacientDao.najdiPacienta(mail);
+
+        MailFacade fasada = new MailFacade();
+
+        String[] parts = imeZdravnika.split(" ");
+
+        if(bolnik.getZdravnik() != null) { bolnik.getZdravnik().odstraniPacienta(bolnik); }
+
+        DruzinskiZdravnik dohtar = zdravnikDao.najdiZdravnika(parts[0], parts[1]);
+
+        if(zdravnikDao.prevzemPacienta(dohtar, dohtar.getPacienti().size())) {
+            fasada.sprejmiPacienta(bolnik, dohtar);
+        } else {
+            fasada.zavrniPacienta(bolnik, dohtar);
+        }
+
+        if(bolnik.getZdravnik() != null && !bolnik.getZdravnik().zeImaPacienta(bolnik)) { bolnik.getZdravnik().getPacienti().add(bolnik); }
     }
 }

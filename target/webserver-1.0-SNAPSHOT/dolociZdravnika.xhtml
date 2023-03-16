@@ -3,7 +3,7 @@
 
 <h:head>
     <meta charset="UTF-8" />
-    <title>Prikaz obiskov</title>
+    <title>Določi zdravnika nekemu pacientu</title>
 </h:head>
 
 <h:body>
@@ -19,22 +19,21 @@
             <a href="#{facesContext.externalContext.applicationContextPath}/faces/dolociZdravnika.xhtml">Izberi zdravnika</a> ]
             <hr />
 
-            Tabela obiskov: <br />
+            <f:metadata>
+                <f:viewParam name="mail" value="#{pacienti.mail}" />
+            </f:metadata>
 
-            <h:dataTable value="#{obiski.getObiski()}" var="obisk">
-                <h:column>#{obisk.stObiska}</h:column>
-                <h:column>#{obisk.pacient.ime} #{obisk.pacient.priimek}</h:column>
-                <h:column>#{obisk.zdravnik.ime} #{obisk.zdravnik.priimek}</h:column>
-                <h:column>
-                    <h:link value="Podrobnosti" outcome="detailObisk">
-                        <f:param name="stObiska" value="#{obisk.stObiska}" />
-                    </h:link> |
-                    <h:link value="Uredi" outcome="addObisk">
-                        <f:param name="stObiska" value="#{obisk.stObiska}" />
-                    </h:link> |
-                    <h:commandLink onclick="if (! confirm('Želite izbrisati obisk?')) return false"  class="edit_icon" value="Izbrisi" action="#{obiski.deleteObisk(obisk.stObiska)}" />
-                </h:column>
-            </h:dataTable>
+            E-mail: <h:inputText id="n_email" value="#{pacienti.mail}" validatorMessage="Insert valid e-mail">
+            <f:validateRequired />
+        </h:inputText> * <h:message for="n_email" style="color:red" /> <br />
+
+            Zdravnik:
+            <h:selectOneMenu value="#{pacienti.imeZdravnika}" >
+                <f:selectItems value="#{dohtarji.getImenaZdravnikov()}"/>
+            </h:selectOneMenu><br />
+
+            <br/><br/>
+            <h:commandButton value="Določi zdravnika" action="#{pacienti.izberiZdravnika()}"/>
 
         </h:form>
     </f:view>

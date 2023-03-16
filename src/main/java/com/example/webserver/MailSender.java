@@ -73,17 +73,6 @@ public class MailSender implements Serializable {
         Transport.send(message);
     }
 
-    public void testPoslj() throws Exception {
-
-        Message message = new MimeMessage(mySession);
-        message.setFrom(new InternetAddress("master@aivvaje.si"));
-        Address toAddress = new InternetAddress("slave@aivvaje.si");
-        message.addRecipient(Message.RecipientType.TO, toAddress);
-        message.setSubject("test");
-        message.setContent("Lep pozdrav", "text/plain");
-        Transport.send(message);
-    }
-
     public void testPoslji() throws Exception {
         Context context = new InitialContext();
         Session seja = (Session) context.lookup("java:jboss/mail/MojMail");
