@@ -63,7 +63,7 @@ public class ZdravnikMemoryDAO implements ZdravnikDAO {
     // funkcija, ki preveri, če ima nek zdravnik še dovolj prostora, da prevzame novega pacienta
 
     public boolean prevzemPacienta(DruzinskiZdravnik zdravnik, int stPacientov, Pacient pacient) {
-        if(stPacientov < zdravnik.getKvota()) { zdravnik.getPacienti().add(pacient); return true; }
+        if(stPacientov < zdravnik.getKvota()) { zdravnik.getPacienti().add(pacient); pacient.setZdravnik(zdravnik); return true; }
         return false;
     }
 }
