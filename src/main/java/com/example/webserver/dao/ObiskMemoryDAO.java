@@ -1,12 +1,14 @@
 package com.example.webserver.dao;
 
 import com.example.webserver.vao.Obisk;
+import jakarta.ejb.Stateless;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+@Stateless
 public class ObiskMemoryDAO implements ObiskDAO {
 
     private List<Obisk> obiski = Collections.synchronizedList(new ArrayList<Obisk>());

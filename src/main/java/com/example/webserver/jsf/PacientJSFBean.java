@@ -1,10 +1,13 @@
 package com.example.webserver.jsf;
 
 import com.example.webserver.MailFacade;
+import com.example.webserver.dao.PacientDAO;
 import com.example.webserver.dao.PacientMemoryDAO;
+import com.example.webserver.dao.ZdravnikDAO;
 import com.example.webserver.dao.ZdravnikMemoryDAO;
 import com.example.webserver.vao.DruzinskiZdravnik;
 import com.example.webserver.vao.Pacient;
+import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 
@@ -29,9 +32,11 @@ public class PacientJSFBean implements Serializable {
 
     private String datumRojstva;
 
-    private PacientMemoryDAO pacientDao = PacientMemoryDAO.getInstance();
+    @EJB
+    private PacientDAO pacientDao;
 
-    private ZdravnikMemoryDAO zdravnikDao = ZdravnikMemoryDAO.getInstance();
+    @EJB
+    private ZdravnikDAO zdravnikDao;
 
     private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -135,6 +140,9 @@ public class PacientJSFBean implements Serializable {
     public void izberiZdravnika() throws Exception {
 
         Pacient bolnik = pacientDao.najdiPacienta(mail);
+
+        System.out.println("Bolnik z imenom " + bolnik.toString());
+        System.out.println("Ime izbranega zdravnika: " + imeZdravnika);
 
         MailFacade fasada = new MailFacade();
 

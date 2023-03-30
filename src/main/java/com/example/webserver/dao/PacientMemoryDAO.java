@@ -1,6 +1,7 @@
 package com.example.webserver.dao;
 
 import com.example.webserver.vao.Pacient;
+import jakarta.ejb.Stateless;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+@Stateless
 public class PacientMemoryDAO implements PacientDAO {
 
     private List<Pacient> pacienti = Collections.synchronizedList(new ArrayList<Pacient>());

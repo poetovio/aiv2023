@@ -1,8 +1,10 @@
 package com.example.webserver.jsf;
 
+import com.example.webserver.dao.ZdravnikDAO;
 import com.example.webserver.dao.ZdravnikMemoryDAO;
 import com.example.webserver.vao.DruzinskiZdravnik;
 import com.example.webserver.vao.Pacient;
+import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 
@@ -21,7 +23,8 @@ public class ZdravnikJSFBean implements Serializable {
 
     private String mail;
 
-    private ZdravnikMemoryDAO zdravnikDao = ZdravnikMemoryDAO.getInstance();
+    @EJB
+    private ZdravnikDAO zdravnikDao;
 
     private String imeZdravnika;
 

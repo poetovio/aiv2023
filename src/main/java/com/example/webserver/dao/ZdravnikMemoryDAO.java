@@ -2,12 +2,14 @@ package com.example.webserver.dao;
 
 import com.example.webserver.vao.DruzinskiZdravnik;
 import com.example.webserver.vao.Pacient;
+import jakarta.ejb.Stateless;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+@Stateless
 public class ZdravnikMemoryDAO implements ZdravnikDAO {
 
     private List<DruzinskiZdravnik> zdravniki = Collections.synchronizedList(new ArrayList<DruzinskiZdravnik>());
@@ -52,6 +54,7 @@ public class ZdravnikMemoryDAO implements ZdravnikDAO {
         }
     }
 
+    @Override
     public DruzinskiZdravnik najdiZdravnika(String ime, String priimek) {
         for (DruzinskiZdravnik zdravnik: zdravniki) {
             if(zdravnik.getIme().equals(ime) && zdravnik.getPriimek().equals(priimek)) { return zdravnik; }
@@ -61,7 +64,7 @@ public class ZdravnikMemoryDAO implements ZdravnikDAO {
 
     // Vaja 4
     // funkcija, ki preveri, če ima nek zdravnik še dovolj prostora, da prevzame novega pacienta
-
+    @Override
     public boolean prevzemPacienta(DruzinskiZdravnik zdravnik, int stPacientov, Pacient pacient) {
         if(stPacientov < zdravnik.getKvota()) { zdravnik.getPacienti().add(pacient); pacient.setZdravnik(zdravnik); return true; }
         return false;
