@@ -135,33 +135,7 @@ public class PacientJSFBean implements Serializable {
         return pacienti;
     }
 
-    // izberi zdravnika
-    /*
-    public void izberiZdravnika() throws Exception {
-
-        Pacient bolnik = pacientDao.najdiPacienta(mail);
-
-        System.out.println("Bolnik z imenom " + bolnik.toString());
-        System.out.println("Ime izbranega zdravnika: " + imeZdravnika);
-
-        MailFacade fasada = new MailFacade();
-
-        String[] parts = imeZdravnika.split(" ");
-
-        if(bolnik.getZdravnik() != null) { bolnik.getZdravnik().odstraniPacienta(bolnik); }
-
-        DruzinskiZdravnik dohtar = zdravnikDao.najdiZdravnika(parts[0], parts[1]);
-
-        if(zdravnikDao.prevzemPacienta(dohtar, dohtar.getPacienti().size(), bolnik)) {
-            fasada.sprejmiPacienta(bolnik, dohtar);
-        } else {
-            fasada.zavrniPacienta(bolnik, dohtar);
-        }
-
-        if(bolnik.getZdravnik() != null && !bolnik.getZdravnik().zeImaPacienta(bolnik)) { bolnik.getZdravnik().getPacienti().add(bolnik); }
-    }
-    */
-
+    // funkcija, ki kliče EJB o izbiri zdravnika
     public void chooseZdravnik() throws Exception {
         pickZdravnik.izberiZdravnika(mail, imeZdravnika);
     }

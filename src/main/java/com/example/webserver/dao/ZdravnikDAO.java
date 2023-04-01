@@ -19,5 +19,4 @@ public interface ZdravnikDAO {
 
     void izbrisiZdravnika(String mail);
 
-    boolean prevzemPacienta(DruzinskiZdravnik dohtar, int size, Pacient bolnik);
 }

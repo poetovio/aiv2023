@@ -34,7 +34,7 @@ public class ChooseZdravnikEJB implements ChooseZdravnik, Serializable {
 
         DruzinskiZdravnik dohtar = zdravnikDao.najdiZdravnika(parts[0], parts[1]);
 
-        if(zdravnikDao.prevzemPacienta(dohtar, dohtar.getPacienti().size(), bolnik)) {
+        if(prevzemPacienta(dohtar, dohtar.getPacienti().size(), bolnik)) {
             fasada.sprejmiPacienta(bolnik, dohtar);
         } else {
             fasada.zavrniPacienta(bolnik, dohtar);
