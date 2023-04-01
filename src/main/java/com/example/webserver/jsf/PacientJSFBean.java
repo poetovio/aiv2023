@@ -1,10 +1,7 @@
 package com.example.webserver.jsf;
 
 import com.example.webserver.MailFacade;
-import com.example.webserver.dao.PacientDAO;
-import com.example.webserver.dao.PacientMemoryDAO;
-import com.example.webserver.dao.ZdravnikDAO;
-import com.example.webserver.dao.ZdravnikMemoryDAO;
+import com.example.webserver.dao.*;
 import com.example.webserver.vao.DruzinskiZdravnik;
 import com.example.webserver.vao.Pacient;
 import jakarta.ejb.EJB;
@@ -37,6 +34,9 @@ public class PacientJSFBean implements Serializable {
 
     @EJB
     private ZdravnikDAO zdravnikDao;
+
+    @EJB
+    private ChooseZdravnik pickZdravnik;
 
     private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -136,7 +136,7 @@ public class PacientJSFBean implements Serializable {
     }
 
     // izberi zdravnika
-
+    /*
     public void izberiZdravnika() throws Exception {
 
         Pacient bolnik = pacientDao.najdiPacienta(mail);
@@ -159,5 +159,10 @@ public class PacientJSFBean implements Serializable {
         }
 
         if(bolnik.getZdravnik() != null && !bolnik.getZdravnik().zeImaPacienta(bolnik)) { bolnik.getZdravnik().getPacienti().add(bolnik); }
+    }
+    */
+
+    public void chooseZdravnik() throws Exception {
+        pickZdravnik.izberiZdravnika(mail, imeZdravnika);
     }
 }
