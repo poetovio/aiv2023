@@ -25,11 +25,13 @@ public class MailFacade implements Serializable {
     private PosljiPacient posljiPacient;
     private PosljiZdravnik posljiZdravnik;
     private PosljiNapako posljiNapako;
+    private PosljiSporocilo posljiSporocilo;
 
     public MailFacade() {
         this.posljiPacient = new PosljiPacient();
         this.posljiZdravnik = new PosljiZdravnik();
         this.posljiNapako = new PosljiNapako();
+        this.posljiSporocilo = new PosljiSporocilo();
     }
 
     public void sprejmiPacienta(Pacient pacient, DruzinskiZdravnik zdravnik) throws Exception {
@@ -39,5 +41,9 @@ public class MailFacade implements Serializable {
 
     public void zavrniPacienta(Pacient pacient, DruzinskiZdravnik zdravnik) throws Exception {
         posljiNapako.posljiSporocilo(pacient, zdravnik);
+    }
+
+    public void sendMessage(Pacient pacient, DruzinskiZdravnik zdravnik, String zadeva, String sporocilo) throws Exception {
+        posljiSporocilo.sendMessage(zdravnik, pacient, zadeva, sporocilo);
     }
 }

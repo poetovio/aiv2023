@@ -1,7 +1,12 @@
 package com.example.webserver.vao;
 
+import com.example.webserver.Observer;
+import com.example.webserver.dao.IOpazovalec;
+
 import java.time.LocalDate;
+import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Pacient {
 
@@ -12,6 +17,8 @@ public class Pacient {
     private String posebnosti;
     private DruzinskiZdravnik zdravnik;
 
+    private List<IOpazovalec> observers;
+
     public Pacient() { this("", "", ""); }
 
     public Pacient(String ime, String priimek, String mail) {
@@ -21,6 +28,8 @@ public class Pacient {
         this.datumRojstva = LocalDate.now();
         this.posebnosti = "";
         this.zdravnik = null;
+        this.observers = new ArrayList<>();
+        this.addObserver(new Observer());
     }
 
 
@@ -74,4 +83,20 @@ public class Pacient {
 
     @Override
     public String toString() { return ime + " " + priimek; }
+
+    public void addObserver(IOpazovalec observer) { this.observers.add(observer); }
+
+    public void removeObserver(IOpazovalec observer) { this.observers.remove(observer); }
+
+    public void alertDodajanje(DruzinskiZdravnik zdravnik) throws Exception {
+        for (IOpazovalec opazovalec: observers) {
+            opazovalec.prostObvesti(zdravnik, this);
+        }
+    }
+
+    public void alertOdstranjevanje(DruzinskiZdravnik zdravnik) throws Exception {
+        for (IOpazovalec opazovalec: observers) {
+            opazovalec.zasedenObvesti(zdravnik, this);
+        }
+    }
 }

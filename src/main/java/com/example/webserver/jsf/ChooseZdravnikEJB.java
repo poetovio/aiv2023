@@ -30,12 +30,16 @@ public class ChooseZdravnikEJB implements ChooseZdravnik, Serializable {
 
         String[] parts = imeZdravnika.split(" ");
 
-        if(bolnik.getZdravnik() != null) { bolnik.getZdravnik().odstraniPacienta(bolnik); }
+        if(bolnik.getZdravnik() != null) {
+            bolnik.getZdravnik().odstraniPacienta(bolnik);
+            bolnik.alertOdstranjevanje(bolnik.getZdravnik());
+        }
 
         DruzinskiZdravnik dohtar = zdravnikDao.najdiZdravnika(parts[0], parts[1]);
 
         if(prevzemPacienta(dohtar, dohtar.getPacienti().size(), bolnik)) {
             fasada.sprejmiPacienta(bolnik, dohtar);
+            bolnik.alertDodajanje(dohtar);
         } else {
             fasada.zavrniPacienta(bolnik, dohtar);
         }
