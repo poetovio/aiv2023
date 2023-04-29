@@ -16,6 +16,8 @@ import java.io.Serializable;
 @Stateless
 public class ChooseZdravnikEJB implements ChooseZdravnik, Serializable {
 
+
+
     @EJB
     private PacientDAO pacientDao;
 

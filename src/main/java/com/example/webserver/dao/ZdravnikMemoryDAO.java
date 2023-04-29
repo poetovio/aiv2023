@@ -3,6 +3,8 @@ package com.example.webserver.dao;
 import com.example.webserver.vao.DruzinskiZdravnik;
 import com.example.webserver.vao.Pacient;
 import jakarta.ejb.Stateless;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +14,10 @@ import java.util.List;
 @Stateless
 public class ZdravnikMemoryDAO implements ZdravnikDAO {
 
-    private List<DruzinskiZdravnik> zdravniki = Collections.synchronizedList(new ArrayList<DruzinskiZdravnik>());
+    @PersistenceContext(unitName = "sample_pu")
+    EntityManager em;
+
+    // private List<DruzinskiZdravnik> zdravniki = Collections.synchronizedList(new ArrayList<DruzinskiZdravnik>());
 
     // pretvorba v Singleton
 
@@ -28,38 +33,38 @@ public class ZdravnikMemoryDAO implements ZdravnikDAO {
 
     @Override
     public List<DruzinskiZdravnik> getZdravniki() {
-        return zdravniki;
+        return em.createQuery("select z from DruzinskiZdravnik z", DruzinskiZdravnik.class).getResultList();
     }
 
     @Override
     public DruzinskiZdravnik najdiZdravnika(String mail) {
-        for (DruzinskiZdravnik zdravnik: zdravniki) {
-            if(zdravnik.getMail().equals(mail)) { return zdravnik; }
+        try {
+            return em.createQuery("select z from DruzinskiZdravnik z where z.mail = :mail", DruzinskiZdravnik.class)
+                    .setParameter("mail", mail).getSingleResult();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
         }
-
-        return null;
     }
 
     @Override
     public void shraniZdravnika(DruzinskiZdravnik zdravnik) {
         if(najdiZdravnika(zdravnik.getMail()) != null) { izbrisiZdravnika(zdravnik.getMail()); }
-
-        zdravniki.add(zdravnik);
+        em.persist(zdravnik);
     }
 
     @Override
-    public void izbrisiZdravnika(String mail) {
-        for(Iterator<DruzinskiZdravnik> i = zdravniki.iterator(); i.hasNext();) {
-            if(i.next().getMail().equals(mail)) { i.remove(); }
-        }
-    }
+    public void izbrisiZdravnika(String mail) { DruzinskiZdravnik dead = najdiZdravnika(mail); if(dead != null) em.remove(dead); }
 
     @Override
     public DruzinskiZdravnik najdiZdravnika(String ime, String priimek) {
-        for (DruzinskiZdravnik zdravnik: zdravniki) {
-            if(zdravnik.getIme().equals(ime) && zdravnik.getPriimek().equals(priimek)) { return zdravnik; }
+        try {
+            return em.createQuery("select z from DruzinskiZdravnik z where z.ime = :ime and z.priimek = :priimek", DruzinskiZdravnik.class)
+                    .setParameter("ime", ime).setParameter("priimek", priimek).getSingleResult();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
 }

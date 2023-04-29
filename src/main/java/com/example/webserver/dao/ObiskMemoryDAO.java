@@ -1,7 +1,11 @@
 package com.example.webserver.dao;
 
+import com.example.webserver.vao.DruzinskiZdravnik;
 import com.example.webserver.vao.Obisk;
 import jakarta.ejb.Stateless;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,7 +15,10 @@ import java.util.List;
 @Stateless
 public class ObiskMemoryDAO implements ObiskDAO {
 
-    private List<Obisk> obiski = Collections.synchronizedList(new ArrayList<Obisk>());
+    @PersistenceContext(unitName = "sample_pu")
+    EntityManager em;
+
+    // private List<Obisk> obiski = Collections.synchronizedList(new ArrayList<Obisk>());
 
     // pretvorba v singleton
 
@@ -25,26 +32,25 @@ public class ObiskMemoryDAO implements ObiskDAO {
     }
 
     @Override
-    public List<Obisk> vrniObiske() { return obiski; }
+    public List<Obisk> vrniObiske() { return em.createQuery("select o from Obisk o", Obisk.class).getResultList(); }
 
     @Override
     public Obisk najdiObisk(int stObiska) {
-        for (Obisk obisk : obiski) {
-            if (obisk.getStObiska() == stObiska) { return obisk; }
+        try {
+            return em.createQuery("select o from Obisk o where o.stObiska = :stObiska", Obisk.class)
+                    .setParameter("stObiska", stObiska).getSingleResult();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     @Override
     public void shraniObisk(Obisk obisk) {
         if(najdiObisk(obisk.getStObiska()) != null) { izbrisiObisk(obisk.getStObiska()); }
-        obiski.add(obisk);
+        em.persist(obisk);
     }
 
     @Override
-    public void izbrisiObisk(int stObiska) {
-        for(Iterator<Obisk> i = obiski.iterator(); i.hasNext();) {
-            if(i.next().getStObiska() == stObiska) { i.remove(); }
-        }
-    }
+    public void izbrisiObisk(int stObiska) { Obisk dead = najdiObisk(stObiska); if(dead != null) em.remove(dead);}
 }
