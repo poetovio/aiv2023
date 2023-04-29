@@ -2,6 +2,8 @@ package com.example.webserver.dao;
 
 import com.example.webserver.vao.Pacient;
 import jakarta.ejb.Stateless;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,7 +14,10 @@ import java.util.List;
 @Stateless
 public class PacientMemoryDAO implements PacientDAO {
 
-    private List<Pacient> pacienti = Collections.synchronizedList(new ArrayList<Pacient>());
+    @PersistenceContext(unitName = "sample_pu")
+    EntityManager em;
+
+    // private List<Pacient> pacienti = Collections.synchronizedList(new ArrayList<Pacient>());
 
     // pretvorba v singleton
 
@@ -26,27 +31,24 @@ public class PacientMemoryDAO implements PacientDAO {
     }
 
     @Override
-    public List<Pacient> getPacienti() { return pacienti; }
+    public List<Pacient> getPacienti() { return em.createQuery("select p from Pacient p ", Pacient.class).getResultList(); }
 
     @Override
     public Pacient najdiPacienta(String mail) {
-        for (Pacient pacient: pacienti) {
-            if(pacient.getMail().equals(mail)) { return pacient; }
+        try {
+            return em.createQuery("select p from Pacient p where p.mail = :mail", Pacient.class).setParameter("mail", mail).getSingleResult();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     @Override
     public void shraniPacienta(Pacient pacient) {
         if(najdiPacienta(pacient.getMail()) != null) { izbrisiPacienta(pacient.getMail()); }
-
-        pacienti.add(pacient);
+        em.persist(pacient);
     }
 
     @Override
-    public void izbrisiPacienta(String mail) {
-        for(Iterator<Pacient> i = pacienti.iterator(); i.hasNext();) {
-            if(i.next().getMail().equals(mail)) { i.remove(); }
-        }
-    }
+    public void izbrisiPacienta(String mail) { Pacient dead = najdiPacienta(mail); if(dead != null) { em.remove(dead); } }
 }

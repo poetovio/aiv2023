@@ -2,21 +2,29 @@ package com.example.webserver.vao;
 
 import com.example.webserver.Observer;
 import com.example.webserver.dao.IOpazovalec;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Pacient {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String ime;
     private String priimek;
     private String mail;
     private LocalDate datumRojstva;
     private String posebnosti;
+    @ManyToOne
     private DruzinskiZdravnik zdravnik;
 
+    @Transient
     private List<IOpazovalec> observers;
 
     public Pacient() { this("", "", ""); }
@@ -98,5 +106,21 @@ public class Pacient {
         for (IOpazovalec opazovalec: observers) {
             opazovalec.zasedenObvesti(zdravnik, this);
         }
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<IOpazovalec> getObservers() {
+        return observers;
+    }
+
+    public void setObservers(List<IOpazovalec> observers) {
+        this.observers = observers;
     }
 }

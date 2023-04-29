@@ -1,9 +1,12 @@
 package com.example.webserver.vao;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+@Entity
 public class Obisk {
 
     public Obisk() {}
@@ -18,11 +21,17 @@ public class Obisk {
         this.datumObiska = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private int stObiska;
+    @ManyToOne
     private Pacient pacient;
     private LocalDate datum;
+    @ManyToOne
     private DruzinskiZdravnik zdravnik;
     private String opisDiangoze;
+    @Transient
     private ArrayList<String> zdravila;
     private String datumObiska;
 
@@ -80,5 +89,13 @@ public class Obisk {
 
     public void setDatumObiska(String datumObiska) {
         this.datumObiska = datumObiska;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

@@ -1,14 +1,21 @@
 package com.example.webserver.vao;
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
+@Entity
 public class DruzinskiZdravnik {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String ime;
     private String priimek;
     private String mail;
     private int kvota;
+    @Transient
     private ArrayList<Pacient> pacienti;
 
     public String getIme() {
@@ -67,5 +74,11 @@ public class DruzinskiZdravnik {
     @Override
     public String toString() { return ime + " " + priimek; }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
