@@ -7,6 +7,9 @@ import com.example.webserver.vao.Pacient;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,6 +19,9 @@ import java.io.Serializable;
 @Named("dohtarji")
 @SessionScoped
 public class ZdravnikJSFBean implements Serializable {
+
+    @PersistenceContext(unitName = "sample_pu")
+    EntityManager em;
 
     private static List<DruzinskiZdravnik> zdravniki;
 
@@ -79,7 +85,12 @@ public class ZdravnikJSFBean implements Serializable {
 
     // funkcija, ki vrne število pacientov, ki jih ima nek zdravnik
 
-    public int steviloPacientov(DruzinskiZdravnik zdravnik) { return zdravnik.getPacienti().size(); }
+    public int steviloPacientov(DruzinskiZdravnik zdravnik) {
+        List<Pacient> stPacientov = em.createQuery("select p from Pacient p where p.zdravnik = :id", Pacient.class)
+            .setParameter("id", zdravnik).getResultList();
+
+        if(stPacientov != null) { return stPacientov.size(); } else { return 0; }
+    }
 
     public String getImeZdravnika() {
         return imeZdravnika;

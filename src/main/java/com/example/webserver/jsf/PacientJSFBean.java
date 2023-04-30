@@ -116,8 +116,10 @@ public class PacientJSFBean implements Serializable {
     public List<Pacient> pacientiZZdravnikom() {
         List<Pacient> pacienti = Collections.synchronizedList(new ArrayList<Pacient>());
 
-        for(Pacient pacient: pacientDao.getPacienti()) {
-            if(pacient.getZdravnik() != null) { pacienti.add(pacient); }
+        List<Pacient> izBaze = pacientDao.getPacienti();
+
+        if(izBaze != null) {
+            for (Pacient pacient : izBaze) { if (pacient.getZdravnik() != null) { pacienti.add(pacient); } }
         }
 
         return pacienti;
@@ -128,8 +130,10 @@ public class PacientJSFBean implements Serializable {
     public List<Pacient> pacientiBrezZdravnika() {
         List<Pacient> pacienti = Collections.synchronizedList(new ArrayList<Pacient>());
 
-        for(Pacient pacient: pacientDao.getPacienti()) {
-            if(pacient.getZdravnik() == null) { pacienti.add(pacient); }
+        List<Pacient> izBaze = pacientDao.getPacienti();
+
+        if(izBaze != null) {
+            for (Pacient pacient : izBaze) { if (pacient.getZdravnik() == null) { pacienti.add(pacient); } }
         }
 
         return pacienti;

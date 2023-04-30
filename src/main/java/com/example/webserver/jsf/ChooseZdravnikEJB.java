@@ -10,13 +10,16 @@ import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 import java.io.Serializable;
 
 @Stateless
 public class ChooseZdravnikEJB implements ChooseZdravnik, Serializable {
 
-
+    @PersistenceContext(unitName = "sample_pu")
+    EntityManager em;
 
     @EJB
     private PacientDAO pacientDao;
