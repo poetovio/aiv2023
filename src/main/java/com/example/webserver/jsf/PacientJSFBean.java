@@ -23,6 +23,8 @@ public class PacientJSFBean implements Serializable {
 
     private Pacient pacient = new Pacient();
 
+    private Long id;
+
     private String mail;
 
     private String imeZdravnika;
@@ -44,8 +46,6 @@ public class PacientJSFBean implements Serializable {
     public void createPacient() {
         String[] parts = imeZdravnika.split(" ");
 
-        if(pacient.getZdravnik() != null) { pacient.getZdravnik().odstraniPacienta(pacient); }
-
         pacient.setZdravnik(zdravnikDao.najdiZdravnika(parts[0], parts[1]));
         pacient.setDatumRojstva(LocalDate.parse(datumRojstva, dtf));
         pacientDao.shraniPacienta(pacient);
@@ -59,7 +59,9 @@ public class PacientJSFBean implements Serializable {
 
     // update operacija
 
-    public void updatePacient() {}
+    public void updatePacient() {
+
+    }
 
     // delete operacija
 

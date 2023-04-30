@@ -25,9 +25,7 @@
 
             Ime: <h:inputText id="n_ime" value="#{pacienti.pacient.ime}"/><br/>
             Priimek: <h:inputText id="n_priimek" value="#{pacienti.pacient.priimek}"/><br/>
-            E-mail: <h:inputText id="n_email" value="#{pacienti.pacient.mail}" validatorMessage="Insert valid e-mail">
-            <f:validateRequired />
-        </h:inputText> * <h:message for="n_email" style="color:red" /> <br />
+            E-mail: <h:outputText  value="#{pacienti.pacient.mail}" escape="false" /><br/>
             Datum rojstva: <h:inputText id="n_datumRojstva" value="#{pacienti.datumRojstva}"/><br/>
             Zdravnik:
             <h:selectOneMenu value="#{pacienti.imeZdravnika}" >
@@ -35,11 +33,10 @@
             </h:selectOneMenu><br />
             Posebnosti: <h:inputText id="n_posebnosti" value="#{pacienti.pacient.posebnosti}"/><br/>
             <br/><br/>
-            <h:commandButton value="Shrani" action="#{pacienti.createPacient()}"/>
+            <h:commandButton value="Uredi" action="#{pacienti.updatePacient()}"/>
 
         </h:form>
     </f:view>
 </h:body>
 
 </html>
-

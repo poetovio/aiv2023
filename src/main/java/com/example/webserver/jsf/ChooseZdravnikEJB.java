@@ -49,7 +49,7 @@ public class ChooseZdravnikEJB implements ChooseZdravnik, Serializable {
         List<Pacient> izBaze = pacientDao.getPacienti();
 
         if(izBaze != null) {
-            for (Pacient pacient : izBaze) { if (pacient.getZdravnik().equals(dohtar)) { dohtar.getPacienti().add(pacient); } }
+            for (Pacient pacient : izBaze) { if (pacient.getZdravnik() != null && pacient.getZdravnik().equals(dohtar)) { dohtar.getPacienti().add(pacient); } }
         }
 
         if(prevzemPacienta(dohtar, dohtar.getPacienti().size(), bolnik)) {
