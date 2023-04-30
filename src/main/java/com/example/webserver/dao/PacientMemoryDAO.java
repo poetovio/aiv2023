@@ -44,6 +44,24 @@ public class PacientMemoryDAO implements PacientDAO {
     }
 
     @Override
+    public Pacient updatePacient(String mail, Pacient nov) {
+        try {
+            em.createQuery("update Pacient p set p.ime = :ime, p.priimek = :priimek, p.datumRojstva = :datumRojstva, p.posebnosti = :posebnosti where p.mail = :mail")
+                    .setParameter("ime", nov.getIme())
+                    .setParameter("priimek", nov.getPriimek())
+                    .setParameter("datumRojstva", nov.getDatumRojstva())
+                    .setParameter("posebnosti", nov.getPosebnosti())
+                    .setParameter("mail", mail)
+                    .executeUpdate();
+
+            return em.createQuery("select p from Pacient p where p.mail = :mail", Pacient.class).setParameter("mail", mail).getSingleResult();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
     public void shraniPacienta(Pacient pacient) {
         if(najdiPacienta(pacient.getMail()) != null) { izbrisiPacienta(pacient.getMail()); }
         em.persist(pacient);

@@ -7,6 +7,8 @@ import com.example.webserver.vao.Pacient;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -60,7 +62,7 @@ public class PacientJSFBean implements Serializable {
     // update operacija
 
     public void updatePacient() {
-
+        pacientDao.updatePacient(mail, pacient);
     }
 
     // delete operacija

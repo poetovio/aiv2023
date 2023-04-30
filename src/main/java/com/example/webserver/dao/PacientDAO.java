@@ -12,6 +12,8 @@ public interface PacientDAO {
 
     Pacient najdiPacienta(String mail);
 
+    Pacient updatePacient(String mail, Pacient nov);
+
     void shraniPacienta(Pacient pacient);
 
     void izbrisiPacienta(String mail);
