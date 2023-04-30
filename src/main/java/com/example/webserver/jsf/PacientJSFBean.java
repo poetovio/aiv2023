@@ -50,7 +50,7 @@ public class PacientJSFBean implements Serializable {
         pacient.setDatumRojstva(LocalDate.parse(datumRojstva, dtf));
         pacientDao.shraniPacienta(pacient);
 
-        if(pacient.getZdravnik() != null && !pacient.getZdravnik().zeImaPacienta(pacient)) { pacient.getZdravnik().getPacienti().add(pacient); }
+        // if(pacient.getZdravnik() != null && !pacient.getZdravnik().zeImaPacienta(pacient)) { pacient.getZdravnik().getPacienti().add(pacient); }
     }
 
     // read operacija
@@ -66,7 +66,7 @@ public class PacientJSFBean implements Serializable {
     public void deletePacient(String mail) {
         Pacient pacient = pacientDao.najdiPacienta(mail);
 
-        if(pacient.getZdravnik() != null) { pacient.getZdravnik().odstraniPacienta(pacient); }
+        // if(pacient.getZdravnik() != null) { pacient.getZdravnik().odstraniPacienta(pacient); }
 
         pacientDao.izbrisiPacienta(mail);
     }

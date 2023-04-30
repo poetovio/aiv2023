@@ -14,6 +14,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Stateless
 public class ChooseZdravnikEJB implements ChooseZdravnik, Serializable {
@@ -41,6 +43,14 @@ public class ChooseZdravnikEJB implements ChooseZdravnik, Serializable {
         }
 
         DruzinskiZdravnik dohtar = zdravnikDao.najdiZdravnika(parts[0], parts[1]);
+
+        dohtar.setPacienti(new ArrayList<Pacient>());
+
+        List<Pacient> izBaze = pacientDao.getPacienti();
+
+        if(izBaze != null) {
+            for (Pacient pacient : izBaze) { if (pacient.getZdravnik().equals(dohtar)) { dohtar.getPacienti().add(pacient); } }
+        }
 
         if(prevzemPacienta(dohtar, dohtar.getPacienti().size(), bolnik)) {
             fasada.sprejmiPacienta(bolnik, dohtar);
