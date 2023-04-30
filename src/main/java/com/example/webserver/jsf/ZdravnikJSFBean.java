@@ -53,7 +53,9 @@ public class ZdravnikJSFBean implements Serializable {
 
     // update operacija
 
-    public void updateZdravnik() {}
+    public void updateZdravnik() {
+        zdravnikDao.updateZdravnik(mail, zdravnik);
+    }
 
     // delete operacija
     public void deleteZdravnik(String mail)  { zdravnikDao.izbrisiZdravnika(mail); }

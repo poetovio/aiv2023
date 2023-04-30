@@ -54,6 +54,24 @@ public class ZdravnikMemoryDAO implements ZdravnikDAO {
     }
 
     @Override
+    public DruzinskiZdravnik updateZdravnik(String mail, DruzinskiZdravnik zdravnik) {
+        try {
+            em.createQuery("update DruzinskiZdravnik z set z.ime = :ime, z.priimek = :priimek, z.kvota = :kvota where z.mail = :mail")
+                    .setParameter("ime", zdravnik.getIme())
+                    .setParameter("priimek", zdravnik.getPriimek())
+                    .setParameter("kvota", zdravnik.getKvota())
+                    .setParameter("mail", mail)
+                    .executeUpdate();
+
+            return em.createQuery("select z from DruzinskiZdravnik z where z.mail = :mail", DruzinskiZdravnik.class)
+                    .setParameter("mail", mail).getSingleResult();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
     public void izbrisiZdravnika(String mail) { DruzinskiZdravnik dead = najdiZdravnika(mail); if(dead != null) em.remove(dead); }
 
     @Override

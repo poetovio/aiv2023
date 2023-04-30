@@ -55,7 +55,7 @@
                     <h:link value="Podrobnosti" outcome="detailZdravnik">
                         <f:param name="mail" value="#{zdravnik.mail}" />
                     </h:link> |
-                    <h:link value="Uredi" outcome="addZdravnik">
+                    <h:link value="Uredi" outcome="editZdravnik">
                         <f:param name="mail" value="#{zdravnik.mail}" />
                     </h:link> |
                     <h:commandLink onclick="if (! confirm('Želite izbrisati zdravnika?')) return false" class="edit_icon" value="Izbrisi" action="#{dohtarji.deleteZdravnik(zdravnik.mail)}"/>

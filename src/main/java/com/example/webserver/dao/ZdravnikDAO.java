@@ -13,6 +13,8 @@ public interface ZdravnikDAO {
 
     DruzinskiZdravnik najdiZdravnika(String mail);
 
+    DruzinskiZdravnik updateZdravnik(String mail, DruzinskiZdravnik zdravnik);
+
     DruzinskiZdravnik najdiZdravnika(String ime, String priimek);
 
     void shraniZdravnika(DruzinskiZdravnik zdravnik);

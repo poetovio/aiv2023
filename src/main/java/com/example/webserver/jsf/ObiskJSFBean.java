@@ -6,6 +6,8 @@ import com.example.webserver.dao.ZdravnikMemoryDAO;
 import com.example.webserver.vao.Obisk;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 import java.io.Serializable;
 import java.util.List;
@@ -37,6 +39,7 @@ public class ObiskJSFBean implements Serializable {
         // System.out.println(pacientDao.najdiPacienta(mailPacienta));
         obisk.setPacient(pacientDao.najdiPacienta(mailPacienta));
         obisk.setZdravnik(zdravnikDao.najdiZdravnika(mailZdravnika));
+
         obiskDao.shraniObisk(obisk);
     }
 
@@ -48,7 +51,9 @@ public class ObiskJSFBean implements Serializable {
 
     // update operacija
 
-    public void updateObisk(Obisk obisk) {}
+    public void updateObisk(Obisk obisk) {
+        obiskDao.updateObisk(stObiska, obisk, pacientDao.najdiPacienta(mailPacienta), zdravnikDao.najdiZdravnika(mailZdravnika));
+    }
 
     // delete operacija
 

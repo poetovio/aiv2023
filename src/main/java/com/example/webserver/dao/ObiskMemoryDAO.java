@@ -2,6 +2,7 @@ package com.example.webserver.dao;
 
 import com.example.webserver.vao.DruzinskiZdravnik;
 import com.example.webserver.vao.Obisk;
+import com.example.webserver.vao.Pacient;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
@@ -49,6 +50,23 @@ public class ObiskMemoryDAO implements ObiskDAO {
     public void shraniObisk(Obisk obisk) {
         if(najdiObisk(obisk.getStObiska()) != null) { izbrisiObisk(obisk.getStObiska()); }
         em.persist(obisk);
+    }
+
+    @Override
+    public Obisk updateObisk(int stObiska, Obisk obisk, Pacient pacient, DruzinskiZdravnik zdravnik) {
+        try {
+            em.createQuery("update Obisk o set o.pacient = :pacient, o.zdravnik = :zdravnik where o.stObiska = :stObiska")
+                    .setParameter("pacient", pacient)
+                    .setParameter("zdravnik", zdravnik)
+                    .setParameter("stObiska", stObiska)
+                    .executeUpdate();
+
+            return em.createQuery("select o from Obisk o where o.stObiska = :stObiska", Obisk.class)
+                    .setParameter("stObiska", stObiska).getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
