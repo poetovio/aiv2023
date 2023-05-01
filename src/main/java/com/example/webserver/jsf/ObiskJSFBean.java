@@ -88,7 +88,15 @@ public class ObiskJSFBean implements Serializable {
 
     // delete operacija
 
-    public void deleteObisk(int stObiska) { obiskDao.izbrisiObisk(stObiska); }
+    public void deleteObisk(int stObiska) {
+        try {
+            utx.begin();
+            obiskDao.izbrisiObisk(stObiska, em);
+            utx.commit();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public Obisk getObisk() {
         return obisk;

@@ -85,5 +85,5 @@ public class ObiskMemoryDAO implements ObiskDAO {
     }
 
     @Override
-    public void izbrisiObisk(int stObiska) { Obisk dead = najdiObisk(stObiska, em); if(dead != null) em.remove(dead);}
+    public void izbrisiObisk(int stObiska, EntityManager em2) { Obisk dead = najdiObisk(stObiska, em2); if(dead != null) em2.remove(dead);}
 }

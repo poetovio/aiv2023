@@ -20,5 +20,5 @@ public interface ObiskDAO {
 
     void shraniObisk(Obisk obisk, String pacient, String zdravnik, EntityManager em, UserTransaction utx);
 
-    void izbrisiObisk(int stObiska);
+    void izbrisiObisk(int stObiska, EntityManager em);
 }
