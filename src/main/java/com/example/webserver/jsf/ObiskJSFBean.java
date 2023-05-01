@@ -76,7 +76,7 @@ public class ObiskJSFBean implements Serializable {
 
     // read operacija
 
-    public List<Obisk> getObiski() { return obiskDao.vrniObiske(); }
+    public List<Obisk> getObiski() { return obiskDao.vrniObiske(em); }
 
     public Obisk getObisk(int stObiska) { return obiskDao.najdiObisk(stObiska, em); }
 

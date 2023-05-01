@@ -37,7 +37,7 @@ public class ObiskMemoryDAO implements ObiskDAO {
     }
 
     @Override
-    public List<Obisk> vrniObiske() { return em.createQuery("select o from Obisk o", Obisk.class).getResultList(); }
+    public List<Obisk> vrniObiske(EntityManager em2) { return em2.createQuery("select o from Obisk o", Obisk.class).getResultList(); }
 
     @Override
     public Obisk najdiObisk(int stObiska, EntityManager em2) {

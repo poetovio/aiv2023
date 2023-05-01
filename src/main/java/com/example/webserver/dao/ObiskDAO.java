@@ -12,7 +12,7 @@ import java.util.List;
 @Local
 public interface ObiskDAO {
 
-    List<Obisk> vrniObiske();
+    List<Obisk> vrniObiske(EntityManager em);
 
     Obisk najdiObisk(int stObiska, EntityManager em2);
 
