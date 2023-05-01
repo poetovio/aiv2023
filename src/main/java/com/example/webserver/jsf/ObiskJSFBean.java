@@ -3,11 +3,15 @@ package com.example.webserver.jsf;
 import com.example.webserver.dao.ObiskMemoryDAO;
 import com.example.webserver.dao.PacientMemoryDAO;
 import com.example.webserver.dao.ZdravnikMemoryDAO;
+import com.example.webserver.vao.DruzinskiZdravnik;
 import com.example.webserver.vao.Obisk;
+import com.example.webserver.vao.Pacient;
+import jakarta.annotation.Resource;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
+import jakarta.transaction.UserTransaction;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,6 +19,13 @@ import java.util.List;
 @SessionScoped
 @Named("obiski")
 public class ObiskJSFBean implements Serializable {
+
+
+    @Resource
+    UserTransaction utx;
+
+    @PersistenceContext(unitName = "sample_pu", type = PersistenceContextType.EXTENDED)
+    EntityManager em;
 
     private PacientMemoryDAO pacientDao = PacientMemoryDAO.getInstance();
     private ZdravnikMemoryDAO zdravnikDao = ZdravnikMemoryDAO.getInstance();
@@ -37,22 +48,42 @@ public class ObiskJSFBean implements Serializable {
 
     public void createObisk() {
         // System.out.println(pacientDao.najdiPacienta(mailPacienta));
-        obisk.setPacient(pacientDao.najdiPacienta(mailPacienta));
-        obisk.setZdravnik(zdravnikDao.najdiZdravnika(mailZdravnika));
 
-        obiskDao.shraniObisk(obisk);
+        try {
+            utx.begin();
+
+            Pacient addPacient = em.createQuery("select p from Pacient p where p.mail = :mail", Pacient.class)
+                    .setParameter("mail", mailPacienta)
+                    .getSingleResult();
+
+            DruzinskiZdravnik addZdravnik = em.createQuery("select z from DruzinskiZdravnik z where z.mail = :mail", DruzinskiZdravnik.class)
+                    .setParameter("mail", mailZdravnika)
+                    .getSingleResult();
+
+            obisk.setPacient(addPacient);
+            obisk.setZdravnik(addZdravnik);
+
+            em.persist(obisk);
+
+            obiskDao.shraniObisk(obisk, mailPacienta, mailZdravnika, em, utx);
+
+            utx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     // read operacija
 
     public List<Obisk> getObiski() { return obiskDao.vrniObiske(); }
 
-    public Obisk getObisk(int stObiska) { return obiskDao.najdiObisk(stObiska); }
+    public Obisk getObisk(int stObiska) { return obiskDao.najdiObisk(stObiska, em); }
 
     // update operacija
 
     public void updateObisk(Obisk obisk) {
-        obiskDao.updateObisk(stObiska, obisk, pacientDao.najdiPacienta(mailPacienta), zdravnikDao.najdiZdravnika(mailZdravnika));
+            obiskDao.updateObisk(stObiska, obisk, pacientDao.najdiPacienta(mailPacienta), zdravnikDao.najdiZdravnika(mailZdravnika));
     }
 
     // delete operacija
@@ -82,7 +113,7 @@ public class ObiskJSFBean implements Serializable {
     public void setStObiska(int stObiska) {
         this.stObiska = stObiska;
 
-        obisk = obiskDao.najdiObisk(stObiska);
+        obisk = obiskDao.najdiObisk(stObiska, em);
 
         if(obisk == null) { obisk = new Obisk(); mailPacienta = ""; mailZdravnika = "";}
         else { mailPacienta = obisk.getPacient().getMail(); mailZdravnika = obisk.getZdravnik().getMail(); }

@@ -3,10 +3,13 @@ package com.example.webserver.dao;
 import com.example.webserver.vao.DruzinskiZdravnik;
 import com.example.webserver.vao.Obisk;
 import com.example.webserver.vao.Pacient;
+import jakarta.annotation.Resource;
 import jakarta.ejb.Stateless;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import jakarta.ejb.TransactionManagement;
+import jakarta.ejb.TransactionManagementType;
+import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
+import jakarta.transaction.UserTransaction;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,6 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @Stateless
+@TransactionManagement(TransactionManagementType.BEAN)
 public class ObiskMemoryDAO implements ObiskDAO {
 
     @PersistenceContext(unitName = "sample_pu")
@@ -23,7 +27,7 @@ public class ObiskMemoryDAO implements ObiskDAO {
 
     // pretvorba v singleton
 
-    private ObiskMemoryDAO() {} // privatni konstruktor
+    public ObiskMemoryDAO() {} // privatni konstruktor
 
     private static ObiskMemoryDAO instance = null;
 
@@ -36,9 +40,9 @@ public class ObiskMemoryDAO implements ObiskDAO {
     public List<Obisk> vrniObiske() { return em.createQuery("select o from Obisk o", Obisk.class).getResultList(); }
 
     @Override
-    public Obisk najdiObisk(int stObiska) {
+    public Obisk najdiObisk(int stObiska, EntityManager em2) {
         try {
-            return em.createQuery("select o from Obisk o where o.stObiska = :stObiska", Obisk.class)
+            return em2.createQuery("select o from Obisk o where o.stObiska = :stObiska", Obisk.class)
                     .setParameter("stObiska", stObiska).getSingleResult();
         } catch(Exception e) {
             e.printStackTrace();
@@ -47,9 +51,20 @@ public class ObiskMemoryDAO implements ObiskDAO {
     }
 
     @Override
-    public void shraniObisk(Obisk obisk) {
-        if(najdiObisk(obisk.getStObiska()) != null) { izbrisiObisk(obisk.getStObiska()); }
-        em.persist(obisk);
+    public void shraniObisk(Obisk obisk, String pacient, String zdravnik, EntityManager em2, UserTransaction utx) {
+
+        try {
+            utx.begin();
+
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("sample_pu");
+            EntityManager em3 = emf.createEntityManager();
+
+            em3.persist(obisk);
+
+            utx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -70,5 +85,5 @@ public class ObiskMemoryDAO implements ObiskDAO {
     }
 
     @Override
-    public void izbrisiObisk(int stObiska) { Obisk dead = najdiObisk(stObiska); if(dead != null) em.remove(dead);}
+    public void izbrisiObisk(int stObiska) { Obisk dead = najdiObisk(stObiska, em); if(dead != null) em.remove(dead);}
 }
