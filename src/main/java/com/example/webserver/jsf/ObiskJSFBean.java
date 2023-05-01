@@ -14,6 +14,7 @@ import jakarta.transaction.Transactional;
 import jakarta.transaction.UserTransaction;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 @SessionScoped
@@ -62,6 +63,7 @@ public class ObiskJSFBean implements Serializable {
 
             obisk.setPacient(addPacient);
             obisk.setZdravnik(addZdravnik);
+            obisk.setDatum(LocalDate.now());
 
             em.persist(obisk);
 
@@ -82,8 +84,25 @@ public class ObiskJSFBean implements Serializable {
 
     // update operacija
 
-    public void updateObisk(Obisk obisk) {
-            obiskDao.updateObisk(stObiska, obisk, pacientDao.najdiPacienta(mailPacienta), zdravnikDao.najdiZdravnika(mailZdravnika));
+    public void updateObisk() {
+
+            try {
+                utx.begin();
+                Pacient editPacient = em.createQuery("select p from Pacient p where p.mail = :mail", Pacient.class)
+                    .setParameter("mail", mailPacienta)
+                    .getSingleResult();
+
+                DruzinskiZdravnik editZdravnik = em.createQuery("select z from DruzinskiZdravnik z where z.mail = :mail", DruzinskiZdravnik.class)
+                        .setParameter("mail", mailZdravnika).getSingleResult();
+
+                obiskDao.updateObisk(stObiska, obisk, editPacient,
+                        editZdravnik, opisDiagnoze, em);
+
+                utx.commit();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
     }
 
     // delete operacija

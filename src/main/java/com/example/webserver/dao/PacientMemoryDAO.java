@@ -36,7 +36,8 @@ public class PacientMemoryDAO implements PacientDAO {
     @Override
     public Pacient najdiPacienta(String mail) {
         try {
-            return em.createQuery("select p from Pacient p where p.mail = :mail", Pacient.class).setParameter("mail", mail).getSingleResult();
+            return em.createQuery("select p from Pacient p where p.mail = :mail", Pacient.class).setParameter("mail", mail)
+                    .getSingleResult();
         } catch(Exception e) {
             e.printStackTrace();
             return null;

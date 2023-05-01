@@ -68,15 +68,16 @@ public class ObiskMemoryDAO implements ObiskDAO {
     }
 
     @Override
-    public Obisk updateObisk(int stObiska, Obisk obisk, Pacient pacient, DruzinskiZdravnik zdravnik) {
+    public Obisk updateObisk(int stObiska, Obisk obisk, Pacient pacient, DruzinskiZdravnik zdravnik, String opisDiagnoze, EntityManager em2) {
         try {
-            em.createQuery("update Obisk o set o.pacient = :pacient, o.zdravnik = :zdravnik where o.stObiska = :stObiska")
+            em2.createQuery("update Obisk o set o.pacient = :pacient, o.zdravnik = :zdravnik, o.opisDiangoze = :opisDiagnoze where o.stObiska = :stObiska")
                     .setParameter("pacient", pacient)
                     .setParameter("zdravnik", zdravnik)
+                    .setParameter("opisDiagnoze", opisDiagnoze)
                     .setParameter("stObiska", stObiska)
                     .executeUpdate();
 
-            return em.createQuery("select o from Obisk o where o.stObiska = :stObiska", Obisk.class)
+            return em2.createQuery("select o from Obisk o where o.stObiska = :stObiska", Obisk.class)
                     .setParameter("stObiska", stObiska).getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
