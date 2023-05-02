@@ -45,7 +45,6 @@ public class ZdraviloJSFBean implements Serializable {
         this.kolicina = 0;
     }
 
-
     public void createZdravilo(int stObiska) {
         zdravilo.setStZdravila(stZdravila);
         zdravilo.setKolicina(kolicina);
@@ -57,6 +56,8 @@ public class ZdraviloJSFBean implements Serializable {
     }
 
     public List<Zdravilo> getAllZdravila() { return zdraviloDao.getZdravila(); }
+
+    public void updateZdravilo() { zdraviloDao.updateZdravilo(stZdravila, naziv, kolicina); }
 
     public void deleteZdravilo(int stZdravila) { zdraviloDao.deleteZdravilo(stZdravila); }
 

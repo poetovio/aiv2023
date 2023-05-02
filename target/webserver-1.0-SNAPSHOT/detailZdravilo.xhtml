@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <meta charset="UTF-8" />
+    <title>Dodaj zdravnika</title>
+</h:head>
+
+<h:body>
+    <f:view>
+
+            [ <a href="#{facesContext.externalContext.applicationContextPath}/faces/prikazPacienti.xhtml">Pregled</a> |
+            <a href="#{facesContext.externalContext.applicationContextPath}/faces/prikazObiski.xhtml">Pregled obiskov</a> |
+            <a href="#{facesContext.externalContext.applicationContextPath}/faces/prikazPacientiBrezZdravnika.xhtml">Pregled pacientov brez zdravnika</a> |
+            <a href="#{facesContext.externalContext.applicationContextPath}/faces/addPacient.xhtml?mail=NULL">Dodaj pacienta</a> |
+            <a href="#{facesContext.externalContext.applicationContextPath}/faces/addZdravnik.xhtml?mail=NULL">Dodaj zdravnika</a> |
+            <a href="#{facesContext.externalContext.applicationContextPath}/faces/addObisk.xhtml?stObiska=0">Dodaj obisk</a> |
+            <a href="#{facesContext.externalContext.applicationContextPath}/faces/dolociZdravnika.xhtml">Izberi zdravnika</a> ]
+            <hr />
+
+            <f:metadata>
+                <f:viewParam name="stObiska" value="#{zdravila.zdravilo.stZdravila}" />
+            </f:metadata>
+
+            Št. obiska: <b>#{zdravila.zdravilo.obisk.stObiska}</b><br/>
+            Št. zdravila: <b>#{zdravila.zdravilo.stZdravila}</b><br/>
+            Naziv zdravila: <b>#{zdravila.zdravilo.naziv}</b><br/>
+            Količina zdravila (št. škatel): <b>#{zdravila.zdravilo.kolicina}</b><br/>
+            <br/><br/>
+    </f:view>
+</h:body>
+
+</html>

@@ -43,7 +43,7 @@ public class ZdraviloMemoryDAO implements ZdraviloDAO {
     @Override
     public Zdravilo updateZdravilo(int stZdravila, String naziv, int kolicina) {
         try {
-            em.createQuery("update Zdravilo z set z.naziv = :naziv, z.kolicina = :kolicina where z.stZdravila = :stZdravila", Zdravilo.class)
+            em.createQuery("update Zdravilo z set z.naziv = :naziv, z.kolicina = :kolicina where z.stZdravila = :stZdravila")
                     .setParameter("naziv", naziv)
                     .setParameter("kolicina", kolicina)
                     .setParameter("stZdravila", stZdravila)
