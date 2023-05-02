@@ -29,6 +29,8 @@
       Količina zdravila (št. škatel): <h:inputText id="n_kolicina" value="#{zdravila.kolicina}" /><br/>
       <br/><br/>
       <h:commandButton value="Uredi" action="#{zdravila.updateZdravilo()}"/>
+      <br/><br/>
+      <a href="#{facesContext.externalContext.applicationContextPath}/faces/editObisk.xhtml?stObiska=#{zdravila.zdravilo.stZdravila}">Nazaj</a>
 
     </h:form>
   </f:view>

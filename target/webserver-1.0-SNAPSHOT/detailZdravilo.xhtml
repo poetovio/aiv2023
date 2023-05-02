@@ -27,6 +27,9 @@
             Naziv zdravila: <b>#{zdravila.zdravilo.naziv}</b><br/>
             Količina zdravila (št. škatel): <b>#{zdravila.zdravilo.kolicina}</b><br/>
             <br/><br/>
+
+            <a href="#{facesContext.externalContext.applicationContextPath}/faces/editObisk.xhtml?stObiska=#{zdravila.zdravilo.stZdravila}">Nazaj</a>
+
     </f:view>
 </h:body>
 
