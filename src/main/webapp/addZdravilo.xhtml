@@ -21,6 +21,7 @@
 
             <f:metadata>
                 <f:viewParam name="stObiska" value="#{obiski.obisk.stObiska}" />
+                <f:viewAction action="#{zdravila.nastaviVrednosti()}" />
             </f:metadata>
 
             Št. obiska: <h:outputText  value="#{obiski.obisk.stObiska}" escape="false"/><br/>

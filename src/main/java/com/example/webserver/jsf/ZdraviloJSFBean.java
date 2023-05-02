@@ -39,6 +39,13 @@ public class ZdraviloJSFBean implements Serializable {
     @EJB
     private ObiskDAO obiskDao;
 
+    public void nastaviVrednosti() {
+        this.stZdravila = 0;
+        this.naziv = "";
+        this.kolicina = 0;
+    }
+
+
     public void createZdravilo(int stObiska) {
         zdravilo.setStZdravila(stZdravila);
         zdravilo.setKolicina(kolicina);
