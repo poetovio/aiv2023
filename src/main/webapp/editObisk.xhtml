@@ -34,6 +34,10 @@
         </h:inputText> * <h:message for="n_opisDiagnoze" style="color:red" /><br/>
             <br/><br/>
 
+            Vnesite posebnosti:
+            <h:inputTextarea id="posebnosti" value="#{obiski.posebnosti}" rows="5" cols="30" />
+            <br/><br/>
+
             <a href="#{facesContext.externalContext.applicationContextPath}/faces/addZdravilo.xhtml?faces-redirect=true">Dodaj zdravilo</a><br />
 
             Dodana zdravila: <br />
@@ -53,7 +57,7 @@
                 </h:column>
             </h:dataTable><br/><br/><br/>
 
-            <h:commandButton value="Uredi" action="#{obiski.updateObisk()}"/>
+            <h:commandButton value="Zaključi" action="#{obiski.updateObisk()}"/>
 
         </h:form>
     </f:view>

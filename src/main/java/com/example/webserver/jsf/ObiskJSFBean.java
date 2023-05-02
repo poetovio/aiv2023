@@ -48,6 +48,8 @@ public class ObiskJSFBean implements Serializable {
 
     private String stringDatum;
 
+    private String posebnosti;
+
     private ObiskMemoryDAO obiskDao = ObiskMemoryDAO.getInstance();
 
     private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -73,6 +75,7 @@ public class ObiskJSFBean implements Serializable {
             obisk.setCasObiska(casObiska);
             obisk.setOpisDiangoze(opisDiagnoze);
             obisk.setDatumObiska(stringDatum);
+            obisk.setPosebnosti("Brez posebnosti");
 
             em.persist(obisk);
 
@@ -94,7 +97,7 @@ public class ObiskJSFBean implements Serializable {
     // update operacija
 
     public void updateObisk() {
-
+            System.out.println(posebnosti);
             try {
                 utx.begin();
                 Pacient editPacient = em.createQuery("select p from Pacient p where p.mail = :mail", Pacient.class)
@@ -105,7 +108,7 @@ public class ObiskJSFBean implements Serializable {
                         .setParameter("mail", mailZdravnika).getSingleResult();
 
                 obiskDao.updateObisk(stObiska, obisk, editPacient,
-                        editZdravnik, opisDiagnoze, casObiska, stringDatum, em);
+                        editZdravnik, opisDiagnoze, casObiska, stringDatum, posebnosti, em);
 
                 utx.commit();
             } catch (Exception e) {
@@ -193,5 +196,13 @@ public class ObiskJSFBean implements Serializable {
 
     public void setStringDatum(String stringDatum) {
         this.stringDatum = stringDatum;
+    }
+
+    public String getPosebnosti() {
+        return posebnosti;
+    }
+
+    public void setPosebnosti(String posebnosti) {
+        this.posebnosti = posebnosti;
     }
 }
