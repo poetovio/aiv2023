@@ -15,6 +15,7 @@ import jakarta.transaction.UserTransaction;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @SessionScoped
@@ -37,13 +38,19 @@ public class ObiskJSFBean implements Serializable {
 
     private int stObiska;
 
+    private String casObiska;
+
     private String mailPacienta;
 
     private String mailZdravnika;
 
     private String opisDiagnoze;
 
+    private String stringDatum;
+
     private ObiskMemoryDAO obiskDao = ObiskMemoryDAO.getInstance();
+
+    private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     // create operacija
 
@@ -63,7 +70,9 @@ public class ObiskJSFBean implements Serializable {
 
             obisk.setPacient(addPacient);
             obisk.setZdravnik(addZdravnik);
-            obisk.setDatum(LocalDate.now());
+            obisk.setCasObiska(casObiska);
+            obisk.setOpisDiangoze(opisDiagnoze);
+            obisk.setDatumObiska(stringDatum);
 
             em.persist(obisk);
 
@@ -96,7 +105,7 @@ public class ObiskJSFBean implements Serializable {
                         .setParameter("mail", mailZdravnika).getSingleResult();
 
                 obiskDao.updateObisk(stObiska, obisk, editPacient,
-                        editZdravnik, opisDiagnoze, em);
+                        editZdravnik, opisDiagnoze, casObiska, stringDatum, em);
 
                 utx.commit();
             } catch (Exception e) {
@@ -168,5 +177,21 @@ public class ObiskJSFBean implements Serializable {
 
     public void setOpisDiagnoze(String opisDiagnoze) {
         this.opisDiagnoze = opisDiagnoze;
+    }
+
+    public String getCasObiska() {
+        return casObiska;
+    }
+
+    public void setCasObiska(String casObiska) {
+        this.casObiska = casObiska;
+    }
+
+    public String getStringDatum() {
+        return stringDatum;
+    }
+
+    public void setStringDatum(String stringDatum) {
+        this.stringDatum = stringDatum;
     }
 }

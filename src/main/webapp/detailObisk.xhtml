@@ -25,7 +25,22 @@
         Številka obiska: <b>#{obiski.obisk.stObiska}</b><br/>
         Pacient: <b>#{obiski.obisk.pacient.ime} #{obiski.obisk.pacient.priimek}</b><br/>
         Zdravnik: <b>#{obiski.obisk.zdravnik.ime} #{obiski.obisk.zdravnik.priimek}</b><br/>
-        Opis diagnoze: <b>#{obiski.obisk.opisDiangoze}</b><br/>
+        Datum obiska: <b>#{obiski.obisk.datumObiska}</b><br/>
+        Čas obiska: <b>#{obiski.obisk.casObiska}</b><br/>
+        Opis diagnoze: <b>#{obiski.obisk.opisDiangoze}</b><br/><br/>
+
+        Predpisana zdravila:
+        <h:dataTable value="#{zdravila.getAllZdravila()}" var="zdravilo">
+            <h:column>#{zdravilo.stZdravila}</h:column>
+            <h:column>#{zdravilo.naziv}</h:column>
+            <h:column>#{zdravilo.kolicina}</h:column>
+
+            <h:column>
+                <h:link value="Podrobnosti" outcome="detailZdravilo">
+                    <f:param name="stZdravila" value="#{zdravilo.stZdravila}" />
+                </h:link>
+            </h:column>
+        </h:dataTable><br/><br/><br/>
 
     </f:view>
 </h:body>

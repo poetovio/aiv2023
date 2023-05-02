@@ -3,7 +3,7 @@
 
 <h:head>
     <meta charset="UTF-8" />
-    <title>Dodaj obisk</title>
+    <title>Dodaj zdravnika</title>
 </h:head>
 
 <h:body>
@@ -20,20 +20,15 @@
             <hr />
 
             <f:metadata>
-                <f:viewParam name="stObiska" value="#{obiski.stObiska}" />
+                <f:viewParam name="stObiska" value="#{obiski.obisk.stObiska}" />
             </f:metadata>
 
-            Številka obiska: <h:inputText id="n_ime" value="#{obiski.obisk.stObiska}" /><br/>
-            Mail pacienta: <h:inputText id="n_mail_pacient" value="#{obiski.mailPacienta}"/><br/>
-            Mail zdravnika: <h:inputText id="n_mail_zdravnik" value="#{obiski.mailZdravnika}"/><br/>
-            Datum obiska: <h:inputText id="n_datum_obiska" value="#{obiski.stringDatum}"/><br/>
-            Čas obiska: <h:inputText id="n_cas_obiska" value="#{obiski.casObiska}"/><br/>
-            Opis diagnoze: <h:inputText id="n_opisDiagnoze" value="#{obiski.opisDiagnoze}" validatorMessage="Insert valid e-mail">
-
-            <f:validateRequired />
-        </h:inputText> * <h:message for="n_opisDiagnoze" style="color:red" /><br/>
-
-            <h:commandButton value="Shrani" action="#{obiski.createObisk()}"/>
+            Št. obiska: <h:outputText  value="#{obiski.obisk.stObiska}" escape="false"/><br/>
+            Št. zdravila: <h:inputText id="n_stZdravila" value="#{zdravila.stZdravila}"/><br/>
+            Naziv zdravila: <h:inputText id="n_naziv" value="#{zdravila.naziv}"/><br/>
+            Količina zdravila (št. škatel): <h:inputText id="n_kolicina" value="#{zdravila.kolicina}" /><br/>
+            <br/><br/>
+            <h:commandButton value="Shrani" action="#{zdravila.createZdravilo()}"/>
 
         </h:form>
     </f:view>

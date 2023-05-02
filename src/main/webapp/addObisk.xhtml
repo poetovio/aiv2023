@@ -26,11 +26,14 @@
             Številka obiska: <h:inputText id="n_ime" value="#{obiski.obisk.stObiska}" /><br/>
             Mail pacienta: <h:inputText id="n_mail_pacient" value="#{obiski.mailPacienta}"/><br/>
             Mail zdravnika: <h:inputText id="n_mail_zdravnik" value="#{obiski.mailZdravnika}"/><br/>
-            Opis diagnoze: <h:inputText id="n_opisDiagnoze" value="#{obiski.obisk.opisDiangoze}" validatorMessage="Insert valid e-mail">
+            Datum obiska: <h:inputText id="n_datum_obiska" value="#{obiski.stringDatum}"/><br/>
+            Čas obiska: <h:inputText id="n_cas_obiska" value="#{obiski.casObiska}"/><br/>
+            Opis diagnoze: <h:inputText id="n_opisDiagnoze" value="#{obiski.opisDiagnoze}" validatorMessage="Insert valid e-mail">
+
             <f:validateRequired />
-        </h:inputText> * <h:message for="n_opisDiagnoze" style="color:red" />
-            <br/><br/>
-            <h:commandButton value="Save" action="#{obiski.createObisk()}"/>
+        </h:inputText> * <h:message for="n_opisDiagnoze" style="color:red" /><br/>
+
+            <h:commandButton value="Shrani" action="#{obiski.createObisk()}"/>
 
         </h:form>
     </f:view>

@@ -11,13 +11,12 @@ public class Obisk {
 
     public Obisk() {}
 
-    public Obisk(int stObiska, Pacient pacient, DruzinskiZdravnik zdravnik, LocalDate datum, String opisDiangoze) {
+    public Obisk(int stObiska, Pacient pacient, DruzinskiZdravnik zdravnik, String casObiska, String opisDiangoze) {
         this.stObiska = stObiska;
         this.pacient = pacient;
         this.zdravnik = zdravnik;
-        this.datum = LocalDate.now();
+        this.casObiska = casObiska;
         this.opisDiangoze = opisDiangoze;
-        this.zdravila = new ArrayList<String>();
         this.datumObiska = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
 
@@ -27,12 +26,10 @@ public class Obisk {
     private int stObiska;
     @ManyToOne
     private Pacient pacient;
-    private LocalDate datum;
+    private String casObiska;
     @ManyToOne
     private DruzinskiZdravnik zdravnik;
     private String opisDiangoze;
-    @Transient
-    private ArrayList<String> zdravila;
     private String datumObiska;
 
     public Pacient getPacient() {
@@ -51,13 +48,9 @@ public class Obisk {
         this.pacient = pacient;
     }
 
-    public LocalDate getDatum() {
-        return datum;
-    }
+    public String getCasObiska() { return casObiska; }
 
-    public void setDatum(LocalDate datum) {
-        this.datum = datum;
-    }
+    public void setCasObiska(String casObiska) { this.casObiska = casObiska; }
 
     public DruzinskiZdravnik getZdravnik() {
         return zdravnik;
@@ -73,14 +66,6 @@ public class Obisk {
 
     public void setOpisDiangoze(String opisDiangoze) {
         this.opisDiangoze = opisDiangoze;
-    }
-
-    public ArrayList<String> getZdravila() {
-        return zdravila;
-    }
-
-    public void setZdravila(ArrayList<String> zdravila) {
-        this.zdravila = zdravila;
     }
 
     public String getDatumObiska() {
