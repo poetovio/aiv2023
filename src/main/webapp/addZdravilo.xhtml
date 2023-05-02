@@ -28,7 +28,7 @@
             Naziv zdravila: <h:inputText id="n_naziv" value="#{zdravila.naziv}"/><br/>
             Količina zdravila (št. škatel): <h:inputText id="n_kolicina" value="#{zdravila.kolicina}" /><br/>
             <br/><br/>
-            <h:commandButton value="Shrani" action="#{zdravila.createZdravilo()}"/>
+            <h:commandButton value="Shrani" action="#{zdravila.createZdravilo(obiski.obisk.stObiska)}"/>
 
         </h:form>
     </f:view>
