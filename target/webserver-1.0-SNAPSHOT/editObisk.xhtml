@@ -23,7 +23,7 @@
                 <f:viewParam name="stObiska" value="#{obiski.obisk.stObiska}" />
             </f:metadata>
 
-            Številka obiska: <h:inputText id="n_ime" value="#{obiski.obisk.stObiska}" /><br/>
+            Številka obiska: <h:outputText value="#{obiski.obisk.stObiska}" /><br/>
             Mail pacienta: <h:inputText id="n_mail_pacient" value="#{obiski.mailPacienta}"/><br/>
             Mail zdravnika: <h:inputText id="n_mail_zdravnik" value="#{obiski.mailZdravnika}"/><br/>
             Datum obiska: <h:inputText id="n_string_datum" value="#{obiski.stringDatum}"/><br/>
@@ -57,7 +57,8 @@
                 </h:column>
             </h:dataTable><br/><br/><br/>
 
-            <h:commandButton value="Zaključi" action="#{obiski.updateObisk()}"/>
+            <h:commandButton value="Uredi" action="#{obiski.updateObisk(false)}"/><br/>
+            <h:commandButton value="Zaključi" action="#{obiski.updateObisk(true)}"/>
 
         </h:form>
     </f:view>

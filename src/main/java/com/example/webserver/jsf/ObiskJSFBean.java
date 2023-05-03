@@ -16,6 +16,8 @@ import jakarta.transaction.UserTransaction;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @SessionScoped
@@ -50,6 +52,8 @@ public class ObiskJSFBean implements Serializable {
 
     private String posebnosti;
 
+    private boolean jeZakljucen;
+
     private ObiskMemoryDAO obiskDao = ObiskMemoryDAO.getInstance();
 
     private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -76,6 +80,7 @@ public class ObiskJSFBean implements Serializable {
             obisk.setOpisDiangoze(opisDiagnoze);
             obisk.setDatumObiska(stringDatum);
             obisk.setPosebnosti("Brez posebnosti");
+            obisk.setJeZakljucen(false);
 
             em.persist(obisk);
 
@@ -92,12 +97,38 @@ public class ObiskJSFBean implements Serializable {
 
     public List<Obisk> getObiski() { return obiskDao.vrniObiske(em); }
 
+    public List<Obisk> getNezakljuceniObiski() {
+        List<Obisk> nezakljuceni = Collections.synchronizedList(new ArrayList<Obisk>());
+
+        for(Obisk visit: getObiski()) {
+            System.out.println("Nezakljuceni -> " + visit.isJeZakljucen());
+            if(!visit.isJeZakljucen()) {
+                nezakljuceni.add(visit);
+            }
+        }
+
+        return nezakljuceni;
+    }
+
+    public List<Obisk> getZakljuceniObiski() {
+        List<Obisk> zakljuceni = Collections.synchronizedList(new ArrayList<Obisk>());
+
+        for(Obisk visit: getObiski()) {
+            System.out.println("Zakljuceni -> " + visit.isJeZakljucen());
+            if(visit.isJeZakljucen()) {
+                zakljuceni.add(visit);
+            }
+        }
+
+        return zakljuceni;
+    }
+
     public Obisk getObisk(int stObiska) { return obiskDao.najdiObisk(stObiska, em); }
 
     // update operacija
 
-    public void updateObisk() {
-            System.out.println(posebnosti);
+    public void updateObisk(boolean over) {
+        System.out.println("Prejeta vrednost -> " + over);
             try {
                 utx.begin();
                 Pacient editPacient = em.createQuery("select p from Pacient p where p.mail = :mail", Pacient.class)
@@ -107,8 +138,12 @@ public class ObiskJSFBean implements Serializable {
                 DruzinskiZdravnik editZdravnik = em.createQuery("select z from DruzinskiZdravnik z where z.mail = :mail", DruzinskiZdravnik.class)
                         .setParameter("mail", mailZdravnika).getSingleResult();
 
-                obiskDao.updateObisk(stObiska, obisk, editPacient,
-                        editZdravnik, opisDiagnoze, casObiska, stringDatum, posebnosti, em);
+                obisk.setJeZakljucen(over);
+
+                System.out.println("Nastavljena vrednost -> " + obisk.isJeZakljucen());
+
+                obiskDao.updateObisk(obisk.getStObiska(), obisk, editPacient,
+                        editZdravnik, opisDiagnoze, casObiska, stringDatum, posebnosti, over, em);
 
                 utx.commit();
             } catch (Exception e) {
@@ -204,5 +239,13 @@ public class ObiskJSFBean implements Serializable {
 
     public void setPosebnosti(String posebnosti) {
         this.posebnosti = posebnosti;
+    }
+
+    public boolean isJeZakljucen() {
+        return jeZakljucen;
+    }
+
+    public void setJeZakljucen(boolean jeZakljucen) {
+        this.jeZakljucen = jeZakljucen;
     }
 }

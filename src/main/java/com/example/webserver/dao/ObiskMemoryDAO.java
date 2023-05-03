@@ -68,23 +68,34 @@ public class ObiskMemoryDAO implements ObiskDAO {
     }
 
     @Override
-    public Obisk updateObisk(int stObiska, Obisk obisk, Pacient pacient, DruzinskiZdravnik zdravnik, String opisDiagnoze, String casObiska, String datumObiska, String posebnosti, EntityManager em2) {
+    public void updateObisk(int stObiska, Obisk obisk, Pacient pacient, DruzinskiZdravnik zdravnik, String opisDiagnoze, String casObiska, String datumObiska, String posebnosti, boolean jeZakljucen, EntityManager em2) {
+        System.out.println(stObiska);
+        System.out.println(pacient);
+        System.out.println(zdravnik);
+        System.out.println(opisDiagnoze);
+        System.out.println(casObiska);
+        System.out.println(datumObiska);
+        System.out.println(posebnosti);
+        System.out.println(jeZakljucen);
         try {
-            em2.createQuery("update Obisk o set o.pacient = :pacient, o.zdravnik = :zdravnik, o.opisDiangoze = :opisDiagnoze, o.casObiska = :casObiska, o.datumObiska = :datumObiska, o.posebnosti = :posebnosti where o.stObiska = :stObiska")
+            System.out.println("Pred nastavljanjem -> " + posebnosti + " " + jeZakljucen);
+            em2.createQuery("update Obisk o set o.pacient = :pacient, o.zdravnik = :zdravnik, o.opisDiangoze = :opisDiagnoze, o.casObiska = :casObiska, o.datumObiska = :datumObiska where o.stObiska = :stObiska")
                     .setParameter("pacient", pacient)
                     .setParameter("zdravnik", zdravnik)
                     .setParameter("opisDiagnoze", opisDiagnoze)
                     .setParameter("casObiska", casObiska)
                     .setParameter("datumObiska", datumObiska)
-                    .setParameter("posebnosti", posebnosti)
                     .setParameter("stObiska", stObiska)
                     .executeUpdate();
 
-            return em2.createQuery("select o from Obisk o where o.stObiska = :stObiska", Obisk.class)
-                    .setParameter("stObiska", stObiska).getSingleResult();
+            em2.createQuery("update Obisk o set o.posebnosti = :posebnosti, o.jeZakljucen = :jeZakljucen where o.stObiska = :stObiska")
+                    .setParameter("posebnosti", posebnosti)
+                    .setParameter("jeZakljucen", jeZakljucen)
+                    .setParameter("stObiska", stObiska)
+                    .executeUpdate();
+
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
     }
 

@@ -11,7 +11,7 @@ public class Obisk {
 
     public Obisk() {}
 
-    public Obisk(int stObiska, Pacient pacient, DruzinskiZdravnik zdravnik, String casObiska, String opisDiangoze, String posebnosti) {
+    public Obisk(int stObiska, Pacient pacient, DruzinskiZdravnik zdravnik, String casObiska, String opisDiangoze, String posebnosti, boolean jeZakljucen) {
         this.stObiska = stObiska;
         this.pacient = pacient;
         this.zdravnik = zdravnik;
@@ -19,6 +19,7 @@ public class Obisk {
         this.opisDiangoze = opisDiangoze;
         this.datumObiska = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         this.posebnosti = posebnosti;
+        this.jeZakljucen = jeZakljucen;
     }
 
     @Id
@@ -34,6 +35,8 @@ public class Obisk {
     private String datumObiska;
 
     private String posebnosti;
+
+    private boolean jeZakljucen;
 
     public Pacient getPacient() {
         return pacient;
@@ -90,4 +93,12 @@ public class Obisk {
     public String getPosebnosti() { return posebnosti; }
 
     public void setPosebnosti(String posebnosti) { this.posebnosti = posebnosti; }
+
+    public boolean isJeZakljucen() {
+        return jeZakljucen;
+    }
+
+    public void setJeZakljucen(boolean jeZakljucen) {
+        this.jeZakljucen = jeZakljucen;
+    }
 }
