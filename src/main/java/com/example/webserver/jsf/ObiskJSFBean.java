@@ -100,6 +100,18 @@ public class ObiskJSFBean implements Serializable {
 
     }
 
+    public List<Zdravilo> getDolocenaZdravila() {
+        List<Zdravilo> zdravila = Collections.synchronizedList(new ArrayList<Zdravilo>());
+
+        for(Zdravilo zdravilo: zdraviloDao.getZdravila()) {
+            if(zdravilo.getObisk().getId() == obisk.getId()) {
+                zdravila.add(zdravilo);
+            }
+        }
+
+         return  zdravila;
+    }
+
     // read operacija
 
     public List<Obisk> getObiski() { return obiskDao.vrniObiske(em); }

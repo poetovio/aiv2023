@@ -41,7 +41,7 @@
             <a href="#{facesContext.externalContext.applicationContextPath}/faces/addZdravilo.xhtml?faces-redirect=true">Dodaj zdravilo</a><br />
 
             Dodana zdravila: <br />
-            <h:dataTable value="#{zdravila.getAllZdravila()}" var="zdravilo">
+            <h:dataTable value="#{obiski.getDolocenaZdravila()}" var="zdravilo">
                 <h:column>#{zdravilo.stZdravila}</h:column>
                 <h:column>#{zdravilo.naziv}</h:column>
                 <h:column>#{zdravilo.kolicina}</h:column>
