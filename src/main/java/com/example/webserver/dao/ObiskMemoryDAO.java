@@ -51,6 +51,17 @@ public class ObiskMemoryDAO implements ObiskDAO {
     }
 
     @Override
+    public Obisk najdiObiskId(Long id, EntityManager em2) {
+        try {
+            return em2.createQuery("select o from Obisk o where o.id = :id", Obisk.class)
+                    .setParameter("id", id).getSingleResult();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
     public void shraniObisk(Obisk obisk, String pacient, String zdravnik, EntityManager em2, UserTransaction utx) {
 
         try {

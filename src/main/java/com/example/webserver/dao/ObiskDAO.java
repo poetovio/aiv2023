@@ -16,6 +16,8 @@ public interface ObiskDAO {
 
     Obisk najdiObisk(int stObiska, EntityManager em2);
 
+    Obisk najdiObiskId(Long id, EntityManager em2);
+
     void updateObisk(int stObiska, Obisk obisk, Pacient pacient, DruzinskiZdravnik zdravnik, String opisDiagnoze, String casObiska, String datumObiska, String posebnosti, boolean jeZakljucen, EntityManager em);
 
     void shraniObisk(Obisk obisk, String pacient, String zdravnik, EntityManager em, UserTransaction utx);

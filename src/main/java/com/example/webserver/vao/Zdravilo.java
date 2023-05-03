@@ -69,7 +69,7 @@ public class Zdravilo {
 
     @Override
     public String toString() {
-        return "Zdravilo " + this.naziv + " s številko " + this.stZdravila +
-                " je predpisano za " + this.kolicina + " škatel.";
+        return "Zdravilo " + this.naziv + " s stevilko " + this.stZdravila +
+                " je predpisano za " + this.kolicina + " skatel.";
     }
 }

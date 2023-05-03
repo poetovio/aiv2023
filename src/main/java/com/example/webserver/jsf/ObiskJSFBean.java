@@ -146,8 +146,17 @@ public class ObiskJSFBean implements Serializable {
 
                 obisk.setJeZakljucen(over);
 
-                obiskDao.updateObisk(obisk.getStObiska(), obisk, editPacient,
-                        editZdravnik, opisDiagnoze, casObiska, stringDatum, posebnosti, over, em);
+                if(over) {
+                    obisk.setStObiska(obiskDao.najdiObiskId(obisk.getId(), em).getStObiska());
+                }
+
+                if(!posebnosti.equals("")) {
+                    obiskDao.updateObisk(obisk.getStObiska(), obisk, editPacient,
+                            editZdravnik, opisDiagnoze, casObiska, stringDatum, posebnosti, over, em);
+                } else {
+                    obiskDao.updateObisk(obisk.getStObiska(), obisk, editPacient,
+                            editZdravnik, opisDiagnoze, casObiska, stringDatum, "Brez posebnosti", over, em);
+                }
 
                 utx.commit();
             } catch (Exception e) {
@@ -170,14 +179,11 @@ public class ObiskJSFBean implements Serializable {
 
     public void zakljuciObisk() {
         Strategija strategy = new Strategija();
-        System.out.println("OK");
 
         Pacient pacient = pacientDao.najdiPacienta(mailPacienta);
-        System.out.println("Pacient -> " + pacient);
         strategy.setPacient(pacient);
 
-        if(!posebnosti.equals("Brez posebnosti")) {
-            System.out.println("Brez posebnosti laufa");
+        if(!posebnosti.equals("Brez posebnosti") && !posebnosti.equals("")) {
             strategy.setStrategija(new StrategijaPosebnosti());
             strategy.posljiMail(posebnosti);
         }
@@ -185,11 +191,6 @@ public class ObiskJSFBean implements Serializable {
         List<String> pravaZdravila = Collections.synchronizedList(new ArrayList<String>());
 
         for(Zdravilo zdravilo: zdraviloDao.getZdravila()) {
-            System.out.println("St obiska zdravila -> " + zdravilo.getObisk().getStObiska());
-            System.out.println("Obisk st obiska -> " + obisk.getStObiska());
-
-            System.out.println("St obiska zdravila -> " + zdravilo.getObisk().getId());
-            System.out.println("Obisk st obiska -> " + obisk.getId());
             if(zdravilo.getObisk().getId() == obisk.getId()) {
                 pravaZdravila.add(zdravilo.toString());
             }
@@ -198,17 +199,14 @@ public class ObiskJSFBean implements Serializable {
         StringBuilder bilder = new StringBuilder("Predpisana zdravila:\n");
 
         if(pravaZdravila.size() != 0) {
-            System.out.println("Zdravila laufa");
             strategy.setStrategija(new StrategijaZdravila());
             for(String zdravilo: pravaZdravila) {
                 bilder.append(zdravilo + "\n");
             }
             strategy.posljiMail(bilder.toString());
         }
-        System.out.println(bilder.toString());
 
         updateObisk(true);
-        System.out.println("Update narejen");
     }
 
     public Obisk getObisk() {
