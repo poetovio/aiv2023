@@ -128,7 +128,6 @@ public class ObiskJSFBean implements Serializable {
     // update operacija
 
     public void updateObisk(boolean over) {
-        System.out.println("Prejeta vrednost -> " + over);
             try {
                 utx.begin();
                 Pacient editPacient = em.createQuery("select p from Pacient p where p.mail = :mail", Pacient.class)
@@ -139,8 +138,6 @@ public class ObiskJSFBean implements Serializable {
                         .setParameter("mail", mailZdravnika).getSingleResult();
 
                 obisk.setJeZakljucen(over);
-
-                System.out.println("Nastavljena vrednost -> " + obisk.isJeZakljucen());
 
                 obiskDao.updateObisk(obisk.getStObiska(), obisk, editPacient,
                         editZdravnik, opisDiagnoze, casObiska, stringDatum, posebnosti, over, em);

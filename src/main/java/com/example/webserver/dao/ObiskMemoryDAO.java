@@ -69,16 +69,8 @@ public class ObiskMemoryDAO implements ObiskDAO {
 
     @Override
     public void updateObisk(int stObiska, Obisk obisk, Pacient pacient, DruzinskiZdravnik zdravnik, String opisDiagnoze, String casObiska, String datumObiska, String posebnosti, boolean jeZakljucen, EntityManager em2) {
-        System.out.println(stObiska);
-        System.out.println(pacient);
-        System.out.println(zdravnik);
-        System.out.println(opisDiagnoze);
-        System.out.println(casObiska);
-        System.out.println(datumObiska);
-        System.out.println(posebnosti);
-        System.out.println(jeZakljucen);
+
         try {
-            System.out.println("Pred nastavljanjem -> " + posebnosti + " " + jeZakljucen);
             em2.createQuery("update Obisk o set o.pacient = :pacient, o.zdravnik = :zdravnik, o.opisDiangoze = :opisDiagnoze, o.casObiska = :casObiska, o.datumObiska = :datumObiska where o.stObiska = :stObiska")
                     .setParameter("pacient", pacient)
                     .setParameter("zdravnik", zdravnik)
