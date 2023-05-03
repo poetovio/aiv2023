@@ -66,4 +66,10 @@ public class Zdravilo {
     public void setStZdravila(int stZdravila) {
         this.stZdravila = stZdravila;
     }
+
+    @Override
+    public String toString() {
+        return "Zdravilo " + this.naziv + " s številko " + this.stZdravila +
+                " je predpisano za " + this.kolicina + " škatel.";
+    }
 }

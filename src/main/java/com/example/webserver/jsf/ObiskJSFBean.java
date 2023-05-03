@@ -1,12 +1,15 @@
 package com.example.webserver.jsf;
 
-import com.example.webserver.dao.ObiskMemoryDAO;
-import com.example.webserver.dao.PacientMemoryDAO;
-import com.example.webserver.dao.ZdravnikMemoryDAO;
+import com.example.webserver.Strategija;
+import com.example.webserver.StrategijaPosebnosti;
+import com.example.webserver.StrategijaZdravila;
+import com.example.webserver.dao.*;
 import com.example.webserver.vao.DruzinskiZdravnik;
 import com.example.webserver.vao.Obisk;
 import com.example.webserver.vao.Pacient;
+import com.example.webserver.vao.Zdravilo;
 import jakarta.annotation.Resource;
+import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import jakarta.persistence.*;
@@ -24,14 +27,12 @@ import java.util.List;
 @Named("obiski")
 public class ObiskJSFBean implements Serializable {
 
-
     @Resource
     UserTransaction utx;
 
     @PersistenceContext(unitName = "sample_pu", type = PersistenceContextType.EXTENDED)
     EntityManager em;
-
-    private PacientMemoryDAO pacientDao = PacientMemoryDAO.getInstance();
+    
     private ZdravnikMemoryDAO zdravnikDao = ZdravnikMemoryDAO.getInstance();
 
     private static List<Obisk> obiski;
@@ -57,6 +58,12 @@ public class ObiskJSFBean implements Serializable {
     private ObiskMemoryDAO obiskDao = ObiskMemoryDAO.getInstance();
 
     private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    @EJB
+    private ZdraviloDAO zdraviloDao;
+
+    @EJB
+    private PacientDAO pacientDao;
 
     // create operacija
 
@@ -159,6 +166,46 @@ public class ObiskJSFBean implements Serializable {
         } catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void zakljuciObisk() {
+        Strategija strategy = new Strategija();
+        System.out.println("OK");
+
+        Pacient pacient = pacientDao.najdiPacienta(mailPacienta);
+        System.out.println("Pacient -> " + pacient);
+        strategy.setPacient(pacient);
+
+        if(!posebnosti.equals("Brez posebnosti")) {
+            System.out.println("Brez posebnosti laufa");
+            strategy.setStrategija(new StrategijaPosebnosti());
+            strategy.posljiMail(posebnosti);
+        }
+
+        List<String> pravaZdravila = Collections.synchronizedList(new ArrayList<String>());
+
+        for(Zdravilo zdravilo: zdraviloDao.getZdravila()) {
+            System.out.println("St obiska zdravila -> " + zdravilo.getObisk().getStObiska());
+            System.out.println("Obisk st obiska -> " + obisk.getStObiska());
+            if(zdravilo.getObisk().getStObiska() == obisk.getStObiska()) {
+                pravaZdravila.add(zdravilo.toString());
+            }
+        }
+
+        StringBuilder bilder = new StringBuilder("Predpisana zdravila:\n");
+
+        if(pravaZdravila.size() != 0) {
+            System.out.println("Zdravila laufa");
+            strategy.setStrategija(new StrategijaZdravila());
+            for(String zdravilo: pravaZdravila) {
+                bilder.append(zdravilo + "\n");
+            }
+            strategy.posljiMail(bilder.toString());
+        }
+        System.out.println(bilder.toString());
+
+        updateObisk(true);
+        System.out.println("Update narejen");
     }
 
     public Obisk getObisk() {
