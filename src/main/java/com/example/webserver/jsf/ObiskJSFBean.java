@@ -32,7 +32,7 @@ public class ObiskJSFBean implements Serializable {
 
     @PersistenceContext(unitName = "sample_pu", type = PersistenceContextType.EXTENDED)
     EntityManager em;
-    
+
     private ZdravnikMemoryDAO zdravnikDao = ZdravnikMemoryDAO.getInstance();
 
     private static List<Obisk> obiski;
@@ -187,7 +187,10 @@ public class ObiskJSFBean implements Serializable {
         for(Zdravilo zdravilo: zdraviloDao.getZdravila()) {
             System.out.println("St obiska zdravila -> " + zdravilo.getObisk().getStObiska());
             System.out.println("Obisk st obiska -> " + obisk.getStObiska());
-            if(zdravilo.getObisk().getStObiska() == obisk.getStObiska()) {
+
+            System.out.println("St obiska zdravila -> " + zdravilo.getObisk().getId());
+            System.out.println("Obisk st obiska -> " + obisk.getId());
+            if(zdravilo.getObisk().getId() == obisk.getId()) {
                 pravaZdravila.add(zdravilo.toString());
             }
         }
