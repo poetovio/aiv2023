@@ -46,13 +46,15 @@ public class ZdraviloJSFBean implements Serializable {
     }
 
     public void createZdravilo(int stObiska) {
-        zdravilo.setStZdravila(stZdravila);
-        zdravilo.setKolicina(kolicina);
-        zdravilo.setNaziv(naziv);
-        Obisk obisk = obiskDao.najdiObisk(stObiska, em);
-        zdravilo.setObisk(obisk);
+        Zdravilo medicine = new Zdravilo();
 
-        zdraviloDao.shraniZdravilo(zdravilo);
+        medicine.setStZdravila(stZdravila);
+        medicine.setKolicina(kolicina);
+        medicine.setNaziv(naziv);
+        Obisk obisk = obiskDao.najdiObisk(stObiska, em);
+        medicine.setObisk(obisk);
+
+        zdraviloDao.shraniZdravilo(medicine);
     }
 
     public List<Zdravilo> getAllZdravila() { return zdraviloDao.getZdravila(); }
